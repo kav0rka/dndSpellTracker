@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DnD Spell Tracker</string>
+    <string name="title_activity_character_screen">CharacterScreen</string>
 </resources>

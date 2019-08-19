@@ -1,12 +1,11 @@
 package kavorka.dndspelltracker;
 
-class Character {
-
-
+public class Character {
 
     private int mHitPoints;
     private int mLevel;
     private String mName;
+    private CharacterClass mClass;
 
     // Stats
     private int mStr;
@@ -15,6 +14,20 @@ class Character {
     private int mInt;
     private int mWis;
     private int mCha;
+
+    Character() {
+        // TEMP FOR NOW
+        mHitPoints = 27;
+        mLevel = 3;
+        mStr = 14;
+        mDex = 8;
+        mCon = 14;
+        mInt = 10;
+        mWis = 16;
+        mCha = 12;
+
+        mClass = new Cleric(this);
+    }
 
     // Getters and setters
     public int getHitPoints() {
