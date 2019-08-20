@@ -17,6 +17,7 @@ public class Character {
 
     Character() {
         // TEMP FOR NOW
+        mName = "Delg";
         mHitPoints = 27;
         mLevel = 3;
         mStr = 14;
