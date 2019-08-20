@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class CharacterScreenActivity extends AppCompatActivity {
     public Character mCharacter;
@@ -22,6 +24,15 @@ public class CharacterScreenActivity extends AppCompatActivity {
 
         TextView hpTextView = (TextView) findViewById(R.id.textViewHP);
         hpTextView.setText(mCharacter.getHitPoints() + "");
+        initRecyclerView();
+    }
+
+
+    private void initRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mCharacter.getSpellSlots());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

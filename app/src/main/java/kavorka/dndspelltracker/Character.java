@@ -30,6 +30,10 @@ public class Character {
         mClass = new Cleric(this);
     }
 
+    public int[] getSpellSlots() {
+        return mClass.getSpellSlots();
+    }
+
     // Getters and setters
     public int getHitPoints() {
         return mHitPoints;
