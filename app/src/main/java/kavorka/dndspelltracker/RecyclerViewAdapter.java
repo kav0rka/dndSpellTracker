@@ -1,9 +1,9 @@
 package kavorka.dndspelltracker;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,17 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private int[] mSpellSlots;
-    private int[] mSpellSlotsUsed;
+    private Character mCharacter;
 
-    public RecyclerViewAdapter(Context context, int[] spellSlots) {
-        // TODO: remove context?
-        mSpellSlots = spellSlots;
-        mSpellSlotsUsed = new int[9];
+    public RecyclerViewAdapter(Character character) {
+        mCharacter = character;
     }
 
     private void useSpell(int lvl) {
-        mSpellSlotsUsed[lvl] = mSpellSlotsUsed[lvl] + 1;
+        mCharacter.useSpell(lvl);
     }
 
     @NonNull
@@ -36,19 +33,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         int count = 0;
-        for (int i : mSpellSlots) {
+        for (int i : mCharacter.getSpellSlots()) {
             if (i > 0) count++;
         }
         return count;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int used = mSpellSlotsUsed[position];
-        int max = mSpellSlots[position];
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        int used = mCharacter.getSpellsUsed()[position];
+        int max = mCharacter.getSpellSlots()[position];
 
         holder.spellLevel.setText("Level " + (position + 1) + ":  ");
         holder.spellSlots.setText(max - used + " / " + max);
+
+        holder.spellDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCharacter.useSpell(position);
+                notifyItemChanged(position);
+            }
+        });
+
+        holder.spellUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCharacter.unUseSpell(position);
+                notifyItemChanged(position);
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,11 +69,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView spellLevel;
         TextView spellSlots;
 
-        public ViewHolder(View itemView) {
+        Button spellUp;
+        Button spellDown;
+
+        public ViewHolder(final View itemView) {
             super(itemView);
             spellLevel = itemView.findViewById(R.id.textViewLvl);
             spellSlots = itemView.findViewById(R.id.textViewSlotsUsed);
             parentLayout = itemView.findViewById(R.id.spell_slot_parent);
+            spellDown = itemView.findViewById(R.id.buttonSpellDown);
+            spellUp = itemView.findViewById(R.id.buttonSpellUp);
         }
     }
 
