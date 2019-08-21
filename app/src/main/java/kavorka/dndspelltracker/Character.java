@@ -1,7 +1,5 @@
 package kavorka.dndspelltracker;
 
-import android.util.Log;
-import android.widget.Toast;
 
 public class Character {
 
@@ -27,7 +25,7 @@ public class Character {
         // TEMP FOR NOW
         mName = "Delg";
         mHitPoints = 27;
-        mLevel = 3;
+        mLevel = 20;
         mStr = 14;
         mDex = 8;
         mCon = 14;
@@ -35,7 +33,7 @@ public class Character {
         mWis = 16;
         mCha = 12;
 
-        mClass = new Cleric(this);
+        mClass = new Wizard(this);
     }
 
     public int[] getSpellSlots() {
@@ -47,11 +45,17 @@ public class Character {
     }
 
     public void useSpell(int lvl) {
-        mSpellsUsed[lvl] = mSpellsUsed[lvl] + 1;
+        int used = mSpellsUsed[lvl];
+        if (used < getSpellSlots()[lvl]) {
+            mSpellsUsed[lvl] = used + 1;
+        }
     }
 
     public void unUseSpell(int lvl) {
-        mSpellsUsed[lvl] = mSpellsUsed[lvl] - 1;
+        int used = mSpellsUsed[lvl];
+        if (used > 0) {
+            mSpellsUsed[lvl] = used - 1;
+        }
     }
 
     public void doShortRest() {
