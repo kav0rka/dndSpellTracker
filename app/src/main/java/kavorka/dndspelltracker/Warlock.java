@@ -5,7 +5,6 @@ public class Warlock extends CharacterClass {
         super(character);
     }
 
-
     @Override
     public void setSpells(Character character) {
         super.setSpells(character);
