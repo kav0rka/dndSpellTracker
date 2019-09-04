@@ -1,6 +1,6 @@
 package kavorka.dndspelltracker
 
-open class CharacterClass(character: Character) {
+open class CharacterClass {
 
     var lvl1SpellMax: Int=0
     var lvl2SpellMax: Int=0

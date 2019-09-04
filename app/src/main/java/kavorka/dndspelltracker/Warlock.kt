@@ -1,6 +1,6 @@
 package kavorka.dndspelltracker
 
-class Warlock internal constructor(character: Character) : CharacterClass(character) {
+class Warlock internal constructor(character: Character) : CharacterClass() {
 
     init {
         setSpells(character)

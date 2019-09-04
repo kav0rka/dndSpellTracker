@@ -1,6 +1,6 @@
 package kavorka.dndspelltracker
 
-class Druid internal constructor(character: Character) : CharacterClass(character) {
+class Druid internal constructor(character: Character) : CharacterClass() {
 
     init {
         setSpellsFull(character)
