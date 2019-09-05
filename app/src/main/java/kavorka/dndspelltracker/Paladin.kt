@@ -1,6 +1,6 @@
 package kavorka.dndspelltracker
 
-class Paladin internal constructor(character: Character) : CharacterClass() {
+class Paladin internal constructor(character: CharacterViewModel) : CharacterClass() {
 
     init {
         setSpellsSemi(character)

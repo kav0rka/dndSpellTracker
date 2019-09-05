@@ -1,6 +1,6 @@
 package kavorka.dndspelltracker
 
-class Cleric internal constructor(character: Character) : CharacterClass() {
+class Cleric internal constructor(character: CharacterViewModel) : CharacterClass() {
 
     init {
         setSpellsFull(character)

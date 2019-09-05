@@ -1,3 +1,3 @@
 package kavorka.dndspelltracker
 
-class Barbarian internal constructor(character: Character) : CharacterClass()
+class Barbarian internal constructor(character: CharacterViewModel) : CharacterClass()

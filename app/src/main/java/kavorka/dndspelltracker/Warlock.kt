@@ -1,11 +1,11 @@
 package kavorka.dndspelltracker
 
-class Warlock internal constructor(character: Character) : CharacterClass() {
+class Warlock internal constructor(character: CharacterViewModel) : CharacterClass() {
 
     init {
         setSpells(character)
     }
-    fun setSpells(character: Character) {
+    fun setSpells(character: CharacterViewModel) {
         val charLvl = character.level
 
         if (charLvl == 1)

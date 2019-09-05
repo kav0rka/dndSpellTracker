@@ -12,7 +12,7 @@ open class CharacterClass {
     var lvl8SpellMax: Int=0
     var lvl9SpellMax: Int=0
 
-    fun setSpellsFull(character: Character) {
+    fun setSpellsFull(character: CharacterViewModel) {
         val charLvl = character.level
 
         if (charLvl == 1) lvl1SpellMax = 2
@@ -66,7 +66,7 @@ open class CharacterClass {
         }
     }
 
-    fun setSpellsSemi(character: Character) {
+    fun setSpellsSemi(character: CharacterViewModel) {
         val charLvl = character.level
         if (charLvl == 2) lvl1SpellMax = 2
         if (charLvl >= 3) lvl1SpellMax++
