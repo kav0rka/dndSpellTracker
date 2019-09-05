@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import kavorka.dndspelltracker.data.SpellSlot
 
 class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
 
