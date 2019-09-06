@@ -7,5 +7,13 @@ import androidx.room.PrimaryKey
 data class Spells(
         @PrimaryKey
         val character: String,
-        val slots: IntArray
+        val lvl1: Int=0,
+        val lvl2: Int=0,
+        val lvl3: Int=0,
+        val lvl4: Int=0,
+        val lvl5: Int=0,
+        val lvl6: Int=0,
+        val lvl7: Int=0,
+        val lvl8: Int=0,
+        val lvl9: Int=0
 )
