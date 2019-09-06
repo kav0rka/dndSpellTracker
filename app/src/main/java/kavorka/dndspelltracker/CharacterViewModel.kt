@@ -1,9 +1,10 @@
 package kavorka.dndspelltracker
 
 import androidx.lifecycle.ViewModel
+import kavorka.dndspelltracker.data.PlayerCharacter
 
 
-class CharacterViewModel : ViewModel() {
+class CharacterViewModel(var playerCharacter: PlayerCharacter) : ViewModel() {
     var hitPoints: Int =0
     var level: Int = 1
     var name: String = ""

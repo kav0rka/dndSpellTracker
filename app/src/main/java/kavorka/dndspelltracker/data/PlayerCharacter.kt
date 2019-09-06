@@ -13,5 +13,6 @@ data class PlayerCharacter(
         var constitution: Int=10,
         var intelligence: Int=10,
         var wisdom: Int=10,
-        var charisma: Int=10
+        var charisma: Int=10,
+        val characterClass: String
 )

@@ -1,14 +1,17 @@
 package kavorka.dndspelltracker
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
 
-class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
+class CharactersAdapter(val context: Context, val launchCharacterScreenActivity: (String) -> Unit): RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
     val list = mutableListOf<PlayerCharacter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersAdapter.ViewHolder {
@@ -25,7 +28,7 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
     }
 
 
-    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameText = view.findViewById<TextView>(R.id.nameTextView)
         val levelText = view.findViewById<TextView>(R.id.levelTextView)
         val newCharacterButton = view.findViewById<Button>(R.id.newCharacterButton)
@@ -44,16 +47,21 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
                 nameText.visibility = View.VISIBLE
                 levelText.visibility = View.VISIBLE
                 goToCharacterButton.visibility = View.VISIBLE
+                goToCharacterButton.setOnClickListener {
+                    launchCharacterScreenActivity(playerCharacter.name)
+                }
 
                 nameText.text = playerCharacter.name
                 levelText.text = "Level: " + playerCharacter.level
             } else {
                 newCharacterButton.visibility = View.VISIBLE
+                newCharacterButton.setOnClickListener{
+                    context.startActivity(Intent(context, NewCharacterActivity::class.java))
+//                    val intent = Intent(it.context, NewCharacterActivity::class.java)
+//                    it.context.startActivity(intent)
+//                    launchNewCharacterActivity
+                }
             }
-
-
-
-
         }
     }
 }

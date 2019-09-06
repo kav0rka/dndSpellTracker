@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kavorka.dndspelltracker.data.PlayerCharacter
+import kotlin.concurrent.thread
 
 class CharacterScreenActivity : AppCompatActivity() {
     lateinit var character: CharacterViewModel
+    lateinit var playerCharacter: PlayerCharacter
     lateinit var mRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +21,9 @@ class CharacterScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_character_screen)
 
         character = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
-
+        thread {
+            playerCharacter = db.charactersDao().getCharacterByName(intent.getStringExtra("Name"))
+        }
         val nameTextView = findViewById<TextView>(R.id.textViewName)
         nameTextView.text = character.name
 
