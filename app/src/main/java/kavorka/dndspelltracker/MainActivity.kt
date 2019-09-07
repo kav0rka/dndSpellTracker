@@ -54,11 +54,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val launchNewCharacterActivity = {
-            val intent = Intent(this, NewCharacterActivity::class.java)
-            startActivity(intent)
-        }
-
         val myAdapter = CharactersAdapter(this, launchCharacterScreenActivity)
         thread {
             myAdapter.list.addAll(db.charactersDao().getAll())
