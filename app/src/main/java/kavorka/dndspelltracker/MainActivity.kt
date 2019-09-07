@@ -35,7 +35,6 @@ lateinit var db: CharacterDatabase
 
 class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
-    lateinit var mTestButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +45,6 @@ class MainActivity : AppCompatActivity() {
         // Clear the data!
 //        (applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()
 
-        // For Testing
-        thread {
-            db.charactersDao().insert(PlayerCharacter("Gideon",level=2, characterClass = wizard))
-            db.charactersDao().insert(PlayerCharacter("Delg", level=4, characterClass = cleric))
-        }
         recyclerView = findViewById(R.id.charactersRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -71,12 +65,5 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.adapter = myAdapter
 
-        //TEMP
-        mTestButton = findViewById(R.id.testButton)
-
-        mTestButton.setOnClickListener {
-            val myIntent = Intent(this@MainActivity, NewCharacterActivity::class.java)
-            startActivity(myIntent)
-        }
     }
 }

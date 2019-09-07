@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 data class PlayerCharacter(
         @PrimaryKey
         val name: String,
-        var level: Int=1,
-        var strength: Int=10,
-        var dexterity: Int=10,
-        var constitution: Int=10,
-        var intelligence: Int=10,
-        var wisdom: Int=10,
-        var charisma: Int=10,
-        val characterClass: String
+        val characterClass: String,
+        var level: Int,
+        var strength: Int,
+        var dexterity: Int,
+        var constitution: Int,
+        var intelligence: Int,
+        var wisdom: Int,
+        var charisma: Int
 )

@@ -24,7 +24,7 @@
         android:id="@+id/strTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="128dp"
         android:text="Str:"
         app:layout_constraintStart_toStartOf="@+id/nameEditText"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
@@ -45,6 +45,7 @@
         android:layout_marginStart="48dp"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/strTextView"
         app:layout_constraintStart_toEndOf="@+id/strTextView"
@@ -56,6 +57,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/dexTextView"
         app:layout_constraintStart_toStartOf="@+id/strEditText"
@@ -76,6 +78,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/conTextView"
         app:layout_constraintStart_toStartOf="@+id/dexEditText"
@@ -99,6 +102,7 @@
         android:layout_marginEnd="36dp"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/intTextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +124,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/wisTextView"
         app:layout_constraintStart_toStartOf="@+id/intEditText"
@@ -140,6 +145,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/chaTextView"
         app:layout_constraintStart_toStartOf="@+id/wisEditText"
@@ -149,8 +155,45 @@
         android:id="@+id/classSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/classTextView"
+        app:layout_constraintStart_toEndOf="@+id/classTextView"
+        app:layout_constraintTop_toTopOf="@+id/classTextView" />
+
+    <TextView
+        android:id="@+id/classTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Class:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+
+    <TextView
+        android:id="@+id/lvlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Level:"
+        app:layout_constraintStart_toStartOf="@+id/classTextView"
+        app:layout_constraintTop_toBottomOf="@+id/classTextView" />
+
+    <Spinner
+        android:id="@+id/levelSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/lvlTextView"
+        app:layout_constraintStart_toStartOf="@+id/classSpinner"
+        app:layout_constraintTop_toTopOf="@+id/lvlTextView" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="52dp"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
