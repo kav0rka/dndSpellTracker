@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         // Clear the data!
 //        (applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()
 
-        // Test GIT 10
+        // Test GIT 11
 
         recyclerView = findViewById(R.id.charactersRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
