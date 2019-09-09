@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface CharactersDao {
     @Query("select * from playercharacter")
-    fun getAll(): List<PlayerCharacter>
+    fun getAll(): LiveData<List<PlayerCharacter>>
 
     @Query("select * from playercharacter where name = :name")
     fun getCharacterByName(name: String) : PlayerCharacter

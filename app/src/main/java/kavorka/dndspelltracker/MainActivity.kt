@@ -17,6 +17,8 @@ import android.content.Context.ACTIVITY_SERVICE
 import androidx.core.content.ContextCompat.getSystemService
 import android.app.ActivityManager
 import android.content.Context
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 val bard = "Bard"
 val barbarian = "Barbarian"
@@ -45,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         // Clear the data!
 //        (applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()
 
-        // Test GIT 12
 
         recyclerView = findViewById(R.id.charactersRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -57,10 +58,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         val myAdapter = CharactersAdapter(this, launchCharacterScreenActivity)
-        thread {
-            myAdapter.list.addAll(db.charactersDao().getAll())
-        }
+//        thread {
+//            myAdapter.list.addAll(db.charactersDao().getAll())
+//        }
         recyclerView.adapter = myAdapter
+
+        ViewModelProviders.of(this)
+                .get(MainViewModel::class.java)
+                .getCharacters()
+                .observe(this, Observer {
+                    if (it != null) {
+                        myAdapter.list.clear()
+                        myAdapter.list.addAll(it)
+                        myAdapter.notifyDataSetChanged()
+                    }
+                })
+
+
 
     }
 }
