@@ -51,16 +51,20 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.charactersRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        val launchNewCharacterActivity = {name: String ->
+            val intent = Intent(this, NewCharacterActivity::class.java)
+            intent.putExtra("Name", name)
+            startActivity(intent)
+        }
+
         val launchCharacterScreenActivity = {name: String ->
             val intent = Intent(this, CharacterScreenActivity::class.java)
             intent.putExtra("Name", name)
             startActivity(intent)
         }
 
-        val myAdapter = CharactersAdapter(this, launchCharacterScreenActivity)
-//        thread {
-//            myAdapter.list.addAll(db.charactersDao().getAll())
-//        }
+        val myAdapter = CharactersAdapter(this, launchCharacterScreenActivity, launchNewCharacterActivity)
+
         recyclerView.adapter = myAdapter
 
         ViewModelProviders.of(this)

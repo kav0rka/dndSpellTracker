@@ -1,17 +1,17 @@
 package kavorka.dndspelltracker
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kotlin.concurrent.thread
 
-class CharactersAdapter(val context: Context, val launchCharacterScreenActivity: (String) -> Unit): RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
+class CharactersAdapter(val context: Context, val launchCharacterScreenActivity: (String) -> Unit, val launchNewCharacterActivity: (String) -> Unit): RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {
     val list = mutableListOf<PlayerCharacter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersAdapter.ViewHolder {
@@ -33,6 +33,8 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
         val levelText = view.findViewById<TextView>(R.id.levelTextView)
         val newCharacterButton = view.findViewById<Button>(R.id.newCharacterButton)
         val goToCharacterButton = view.findViewById<Button>(R.id.goToCharacterButton)
+        val editImageButton = view.findViewById<ImageButton>(R.id.editImageButton)
+        val deleteImageButton = view.findViewById<ImageButton>(R.id.deleteImageButton)
 
 
         fun updateView(index: Int) {
@@ -40,6 +42,8 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
             levelText.visibility = View.GONE
             goToCharacterButton.visibility = View.GONE
             newCharacterButton.visibility = View.GONE
+            editImageButton.visibility = View.GONE
+            deleteImageButton.visibility = View.GONE
 
             if (index != list.size) {
                 val playerCharacter = list[index]
@@ -47,8 +51,21 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
                 nameText.visibility = View.VISIBLE
                 levelText.visibility = View.VISIBLE
                 goToCharacterButton.visibility = View.VISIBLE
+                editImageButton.visibility = View.VISIBLE
+                deleteImageButton.visibility = View.VISIBLE
+
+                editImageButton.setOnClickListener {
+                    launchNewCharacterActivity(playerCharacter.name)
+                }
+
                 goToCharacterButton.setOnClickListener {
                     launchCharacterScreenActivity(playerCharacter.name)
+                }
+
+                deleteImageButton.setOnClickListener {
+                    thread {
+                        db.charactersDao().deleteCharacterByName(playerCharacter.name)
+                    }
                 }
 
                 nameText.text = playerCharacter.name
@@ -56,10 +73,7 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
             } else {
                 newCharacterButton.visibility = View.VISIBLE
                 newCharacterButton.setOnClickListener{
-                    context.startActivity(Intent(context, NewCharacterActivity::class.java))
-//                    val intent = Intent(it.context, NewCharacterActivity::class.java)
-//                    it.context.startActivity(intent)
-//                    launchNewCharacterActivity
+                    launchNewCharacterActivity("")
                 }
             }
         }

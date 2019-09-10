@@ -64,4 +64,27 @@
         android:text="Level"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+    <ImageButton
+        android:id="@+id/deleteImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/goToCharacterButton"
+        app:layout_constraintEnd_toStartOf="@+id/goToCharacterButton"
+        app:layout_constraintTop_toTopOf="@+id/goToCharacterButton"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageButton
+        android:id="@+id/editImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/deleteImageButton"
+        app:layout_constraintTop_toTopOf="@+id/deleteImageButton"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
