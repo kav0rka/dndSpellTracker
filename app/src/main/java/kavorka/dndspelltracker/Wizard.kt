@@ -1,9 +1,9 @@
 package kavorka.dndspelltracker
 
-class Wizard internal constructor(character: CharacterViewModel) : CharacterClass() {
+class Wizard internal constructor(level: Int) : CharacterClass() {
 
     init {
-        setSpellsFull(character)
+        setSpellsFull(level)
     }
 
 }

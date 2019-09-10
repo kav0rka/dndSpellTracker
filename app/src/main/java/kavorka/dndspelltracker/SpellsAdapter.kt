@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 
 class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {

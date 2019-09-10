@@ -12,77 +12,75 @@ open class CharacterClass {
     var lvl8SpellMax: Int=0
     var lvl9SpellMax: Int=0
 
-    fun setSpellsFull(character: CharacterViewModel) {
-        val charLvl = character.level
+    fun setSpellsFull(level: Int) {
 
-        if (charLvl == 1) lvl1SpellMax = 2
-        if (charLvl >= 2) lvl1SpellMax++
-        if (charLvl >= 3) {
+        if (level == 1) lvl1SpellMax = 2
+        if (level >= 2) lvl1SpellMax++
+        if (level >= 3) {
             lvl1SpellMax++
             lvl2SpellMax =2
         }
-        if (charLvl >= 4) {
+        if (level >= 4) {
             lvl2SpellMax++
         }
-        if (charLvl >= 5) {
+        if (level >= 5) {
             lvl3SpellMax = 2
         }
-        if (charLvl >= 6) {
+        if (level >= 6) {
             lvl2SpellMax++
             lvl3SpellMax++
         }
-        if (charLvl >= 7) {
+        if (level >= 7) {
             lvl4SpellMax = 1
         }
-        if (charLvl >= 8) {
+        if (level >= 8) {
             lvl4SpellMax++
         }
-        if (charLvl >= 9) {
+        if (level >= 9) {
             lvl5SpellMax = 1
         }
-        if (charLvl >= 10) {
+        if (level >= 10) {
             lvl5SpellMax++
         }
-        if (charLvl >= 11) {
+        if (level >= 11) {
             lvl6SpellMax = 1
         }
-        if (charLvl >= 13) {
+        if (level >= 13) {
             lvl7SpellMax = 1
         }
-        if (charLvl >= 15) {
+        if (level >= 15) {
             lvl8SpellMax = 1
         }
-        if (charLvl >= 17) {
+        if (level >= 17) {
             lvl9SpellMax = 1
         }
-        if (charLvl >= 18) {
+        if (level >= 18) {
             lvl5SpellMax++
         }
-        if (charLvl >= 19) {
+        if (level >= 19) {
             lvl6SpellMax++
         }
-        if (charLvl == 20) {
+        if (level == 20) {
             lvl7SpellMax++
         }
     }
 
-    fun setSpellsSemi(character: CharacterViewModel) {
-        val charLvl = character.level
-        if (charLvl == 2) lvl1SpellMax = 2
-        if (charLvl >= 3) lvl1SpellMax++
-        if (charLvl >= 5) {
+    fun setSpellsSemi(level: Int) {
+        if (level == 2) lvl1SpellMax = 2
+        if (level >= 3) lvl1SpellMax++
+        if (level >= 5) {
             lvl1SpellMax++
             lvl2SpellMax = 2
         }
-        if (charLvl >= 7) lvl2SpellMax++
-        if (charLvl >= 9) lvl3SpellMax = 2
-        if (charLvl >= 11) lvl3SpellMax++
-        if (charLvl >= 13) lvl4SpellMax = 1
-        if (charLvl >= 15) lvl4SpellMax++
-        if (charLvl >= 17) {
+        if (level >= 7) lvl2SpellMax++
+        if (level >= 9) lvl3SpellMax = 2
+        if (level >= 11) lvl3SpellMax++
+        if (level >= 13) lvl4SpellMax = 1
+        if (level >= 15) lvl4SpellMax++
+        if (level >= 17) {
             lvl4SpellMax++
             lvl5SpellMax = 1
-        } else if (charLvl >= 19)lvl5SpellMax++
+        } else if (level >= 19)lvl5SpellMax++
     }
 
     fun getSpellSlots(): IntArray {

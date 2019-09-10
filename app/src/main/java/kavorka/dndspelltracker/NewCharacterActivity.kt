@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kotlin.concurrent.thread
 
@@ -20,7 +19,7 @@ class NewCharacterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_character)
 
         name = intent.getStringExtra("Name")
-        
+
 
         // Class spinner
         val classNames = arrayOf(bard, barbarian, cleric, druid, fighter, monk, paladin, ranger, rogue, sorcerer, warlock, wizard)

@@ -1,8 +1,8 @@
 package kavorka.dndspelltracker
 
-class Ranger internal constructor(character: CharacterViewModel) : CharacterClass() {
+class Ranger internal constructor(level: Int) : CharacterClass() {
 
     init {
-        setSpellsSemi(character)
+        setSpellsSemi(level)
     }
 }

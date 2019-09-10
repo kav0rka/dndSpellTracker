@@ -1,3 +1,3 @@
 package kavorka.dndspelltracker
 
-class Rouge internal constructor(character: CharacterViewModel) : CharacterClass()
+class Rouge internal constructor(level: Int) : CharacterClass()

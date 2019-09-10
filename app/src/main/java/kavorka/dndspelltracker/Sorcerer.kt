@@ -1,8 +1,8 @@
 package kavorka.dndspelltracker
 
-class Sorcerer internal constructor(character: CharacterViewModel) : CharacterClass() {
+class Sorcerer internal constructor(level: Int) : CharacterClass() {
 
     init {
-        setSpellsFull(character)
+        setSpellsFull(level)
     }
 }

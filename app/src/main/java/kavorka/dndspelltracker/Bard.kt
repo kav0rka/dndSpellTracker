@@ -1,8 +1,8 @@
 package kavorka.dndspelltracker
 
-class Bard internal constructor(character: CharacterViewModel) : CharacterClass() {
+class Bard internal constructor(level: Int) : CharacterClass() {
 
     init {
-        setSpellsFull(character)
+        setSpellsFull(level)
     }
 }

@@ -1,14 +1,23 @@
 package kavorka.dndspelltracker
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.data.Spells
 
 
-class CharacterViewModel(var playerCharacter: PlayerCharacter) : ViewModel() {
+class CharacterViewModel() : ViewModel() {
+    private var spells: LiveData<Spells>? = null
+    fun getSpells(name: String) : LiveData<Spells> {
+        if (spells == null && name != "") {
+            spells = db.spellsDao().getSpellsByCharacter("")
+        }
+        return spells!!
+    }
+
     var hitPoints: Int =0
-    var level: Int = 1
+    var level: Int = 5
     var name: String = ""
-    var charClass = Wizard(this)
+    var charClass = Wizard(level)
 
     // Stats
     // ADD stats!
