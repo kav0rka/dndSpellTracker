@@ -8,8 +8,6 @@ import androidx.room.Query
 
 @Dao
 interface SpellsDao {
-    @Query("select * from spells where character = :character")
-    fun getSpellsByCharacterLive(character: String): LiveData<List<Spells>>
 
     @Query("select * from spells where character = :character")
     fun getSpellsByCharacter(character: String): List<Spells>

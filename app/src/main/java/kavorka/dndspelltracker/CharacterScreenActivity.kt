@@ -2,12 +2,10 @@ package kavorka.dndspelltracker
 
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
