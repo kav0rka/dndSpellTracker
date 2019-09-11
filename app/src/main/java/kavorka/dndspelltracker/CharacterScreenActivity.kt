@@ -18,7 +18,7 @@ class CharacterScreenActivity : AppCompatActivity() {
     lateinit var playerCharacter: PlayerCharacter
     lateinit var spellRecycler: RecyclerView
     lateinit var spellsAdapter: SpellsAdapter
-    var name = ""
+    lateinit var name: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,27 +27,28 @@ class CharacterScreenActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
         initRecyclerView()
+        name = intent.getStringExtra("Name")
+        val nameTextView = findViewById<TextView>(R.id.textViewName)
+        nameTextView.text = name
+
 
         thread {
-            playerCharacter = db.charactersDao().getCharacterByName(intent.getStringExtra("Name"))
-            val nameTextView = findViewById<TextView>(R.id.textViewName)
-            name = playerCharacter.name
-            nameTextView.text = name
-            val spells = db.spellsDao().getSpellsByCharacter(name)
-            spellsAdapter.list.addAll(spells)
-            spellsAdapter.notifyDataSetChanged()
+            playerCharacter = db.charactersDao().getCharacterByName(name)
+//            val spells = db.spellsDao().getSpellsByCharacter(name)
+//            spellsAdapter.list.addAll(spells)
+//            spellsAdapter.notifyDataSetChanged()
 //            viewModel.level = playerCharacter.level
         }
 
-
+//        if (name != "")
         ViewModelProviders.of(this)
                 .get(CharacterViewModel::class.java)
                 .getSpells(name)
                 .observe(this, Observer {
                     if (it != null) {
-//                        spellsAdapter.list.clear()
-//                        spellsAdapter.list.addAll(it)
-//                        spellsAdapter.notifyDataSetChanged()
+                        spellsAdapter.list.clear()
+                        spellsAdapter.list.addAll(it)
+                        spellsAdapter.notifyDataSetChanged()
                     }
                 })
 

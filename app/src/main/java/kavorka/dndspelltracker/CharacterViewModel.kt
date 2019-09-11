@@ -9,9 +9,7 @@ import kavorka.dndspelltracker.data.Spells
 class CharacterViewModel: ViewModel() {
     private var spells: LiveData<List<Spells>>? = null
     fun getSpells(name: String) : LiveData<List<Spells>> {
-        Log.d("getting spells?", name)
         if (spells == null) {
-            Log.d("spells get", name)
             spells = db.spellsDao().getSpellsByCharacterLive(name)
         }
         return spells!!

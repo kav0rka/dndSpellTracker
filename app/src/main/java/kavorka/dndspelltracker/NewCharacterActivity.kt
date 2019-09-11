@@ -89,12 +89,11 @@ class NewCharacterActivity : AppCompatActivity() {
                 db.charactersDao().insert(newCharacter)
                 val characterClass = getClass(playerClass, level)
                 characterClass.getSpellSlots().forEachIndexed { index, i ->
-                    Log.d("index", index.toString())
-                    Log.d("spell", i.toString())
                     if (i > 0) {
-                        Log.d("Inserting", index.toString())
                         val spell = Spells(name, index + 1, i, 0)
                         db.spellsDao().insert(spell)
+                    } else {
+                        db.spellsDao().deleteSpellsByCharacterandLevel(name, index + 1)
                     }
                 }
 

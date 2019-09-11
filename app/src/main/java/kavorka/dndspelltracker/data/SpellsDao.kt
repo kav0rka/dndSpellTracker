@@ -19,4 +19,7 @@ interface SpellsDao {
 
     @Query("delete from spells where character = :character")
     fun deleteSpellsByCharacter(character: String)
+
+    @Query("delete from spells where character = :character and level = :level")
+    fun deleteSpellsByCharacterandLevel(character: String, level: Int)
 }
