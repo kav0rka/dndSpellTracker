@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
 import android.content.Intent
+import android.graphics.drawable.ClipDrawable.HORIZONTAL
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,13 @@ import androidx.room.Room
 import kavorka.dndspelltracker.data.CharacterDatabase
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 val bard = "Bard"
 val barbarian = "Barbarian"
@@ -59,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         val myAdapter = CharactersAdapter(this, launchCharacterScreenActivity, launchNewCharacterActivity)
 
         recyclerView.adapter = myAdapter
+        val itemDecor = DividerItemDecoration(this, HORIZONTAL)
+        recyclerView.addItemDecoration(itemDecor)
 
         ViewModelProviders.of(this)
                 .get(MainViewModel::class.java)

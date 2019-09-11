@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.Spells
+import kotlin.concurrent.thread
 
-class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
+class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
     val list = mutableListOf<Spells>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,29 +18,33 @@ class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<S
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount() =  list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.updateView(position)
-//
-//        holder.spellDown.setOnClickListener {
-//            mCharacter.useSpell(position)
-//            notifyItemChanged(position)
-//        }
-//
-//        holder.spellUp.setOnClickListener {
-//            mCharacter.unuseSpell(position)
-//            notifyItemChanged(position)
-//        }
+
+        holder.spellDown.setOnClickListener {
+            characterViewModel.useSpell(position)
+            thread {
+                db.spellsDao().insert(characterViewModel.spells[position])
+            }
+            notifyItemChanged(position)
+        }
+
+        holder.spellUp.setOnClickListener {
+            characterViewModel.unUseSpell(position)
+            thread {
+                db.spellsDao().insert(characterViewModel.spells[position])
+            }
+            notifyItemChanged(position)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var spellLevel = itemView.findViewById<TextView>(R.id.textViewLvl)
         var spellSlots = itemView.findViewById<TextView>(R.id.textViewSlotsUsed)
-        var spellUp = itemView.findViewById<Button>(R.id.buttonSpellDown)
-        var spellDown = itemView.findViewById<Button>(R.id.buttonSpellUp)
+        var spellUp = itemView.findViewById<ImageButton>(R.id.buttonSpellDown)
+        var spellDown = itemView.findViewById<ImageButton>(R.id.buttonSpellUp)
 
 
         fun updateView(index: Int) {

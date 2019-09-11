@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker
 
+import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
@@ -34,23 +36,12 @@ class CharacterScreenActivity : AppCompatActivity() {
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
-//            val spells = db.spellsDao().getSpellsByCharacter(name)
-//            spellsAdapter.list.addAll(spells)
-//            spellsAdapter.notifyDataSetChanged()
-//            viewModel.level = playerCharacter.level
+            viewModel.spells.clear()
+            viewModel.spells.addAll(db.spellsDao().getSpellsByCharacter(name))
+            spellsAdapter.list.addAll(viewModel.spells)
+            spellsAdapter.notifyDataSetChanged()
         }
 
-//        if (name != "")
-        ViewModelProviders.of(this)
-                .get(CharacterViewModel::class.java)
-                .getSpells(name)
-                .observe(this, Observer {
-                    if (it != null) {
-                        spellsAdapter.list.clear()
-                        spellsAdapter.list.addAll(it)
-                        spellsAdapter.notifyDataSetChanged()
-                    }
-                })
 
 
 //        val hpTextView = findViewById<TextView>(R.id.textViewHP)
@@ -60,12 +51,17 @@ class CharacterScreenActivity : AppCompatActivity() {
         val btnLongRest = findViewById<Button>(R.id.buttonLongRest)
 
 
-//        btnShortRest.setOnClickListener { characte.doShortRest() }
-
-//        btnLongRest.setOnClickListener {
-//            character.doLongRest()
-//            resetRecyclerView()
-//        }
+        btnShortRest.setOnClickListener { viewModel.doShortRest() }
+//
+        btnLongRest.setOnClickListener {
+            viewModel.doLongRest()
+            thread {
+                viewModel.spells.forEach {
+                    db.spellsDao().insert(it)
+                }
+            }
+            spellsAdapter.notifyDataSetChanged()
+        }
 
 
     }
@@ -75,6 +71,8 @@ class CharacterScreenActivity : AppCompatActivity() {
         spellsAdapter = SpellsAdapter(viewModel)
         spellRecycler.adapter = spellsAdapter
         spellRecycler.layoutManager = LinearLayoutManager(this)
+        val itemDecor = DividerItemDecoration(this, ClipDrawable.HORIZONTAL)
+        spellRecycler.addItemDecoration(itemDecor)
     }
 
 }
