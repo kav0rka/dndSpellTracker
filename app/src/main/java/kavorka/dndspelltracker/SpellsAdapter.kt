@@ -3,22 +3,23 @@ package kavorka.dndspelltracker
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.Spells
 import kotlin.concurrent.thread
 
 class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
-    val list = mutableListOf<Spells>()
+    val spellList = mutableListOf<Spells>()
+    val abilityList = mutableListOf<Ability>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_spell_slots, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount() =  list.size
+    override fun getItemCount() =  spellList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.updateView(position)
@@ -48,7 +49,7 @@ class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.A
 
 
         fun updateView(index: Int) {
-            val spells = list[index]
+            val spells = spellList[index]
             spellLevel.text = "Level " + spells.level.toString() + ":"
             spellSlots.text = spells.used.toString() + "/" + spells.max.toString()
         }

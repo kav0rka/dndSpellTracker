@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewName"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/spellsRecyclerView"
         android:layout_width="395dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -78,11 +78,22 @@
         android:id="@+id/abilitiesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text="ABILITIES:"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintStart_toStartOf="@+id/spellsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/spellsRecyclerView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/abilitiesRecyclerView"
+        android:layout_width="395dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/spellsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/abilitiesTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

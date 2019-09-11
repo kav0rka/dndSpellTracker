@@ -1,11 +1,13 @@
 package kavorka.dndspelltracker
 
 import androidx.lifecycle.ViewModel
+import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.Spells
 
 
 class CharacterViewModel: ViewModel() {
     var spells = mutableListOf<Spells>()
+    var abilities = mutableListOf<Ability>()
 
     var hitPoints: Int =0
     var level: Int = 5

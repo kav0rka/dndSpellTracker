@@ -18,6 +18,8 @@ class CharacterScreenActivity : AppCompatActivity() {
     lateinit var playerCharacter: PlayerCharacter
     lateinit var spellRecycler: RecyclerView
     lateinit var spellsAdapter: SpellsAdapter
+    lateinit var abilitiesRecycler: RecyclerView
+    lateinit var abilitiesAdapter: AbilitiesAdapter
     lateinit var name: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +36,15 @@ class CharacterScreenActivity : AppCompatActivity() {
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
+
             viewModel.spells.clear()
             viewModel.spells.addAll(db.spellsDao().getSpellsByCharacter(name))
-            spellsAdapter.list.addAll(viewModel.spells)
+            spellsAdapter.spellList.addAll(viewModel.spells)
             spellsAdapter.notifyDataSetChanged()
+
+            viewModel.abilities.clear()
+            viewModel.abilities.addAll(db.abilityDao().getAbilitiesByCharacter(name))
+
         }
 
 
@@ -65,7 +72,7 @@ class CharacterScreenActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        spellRecycler = findViewById(R.id.recyclerView)
+        spellRecycler = findViewById(R.id.spellsRecyclerView)
         spellsAdapter = SpellsAdapter(viewModel)
         spellRecycler.adapter = spellsAdapter
         spellRecycler.layoutManager = LinearLayoutManager(this)

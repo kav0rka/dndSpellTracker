@@ -96,6 +96,10 @@ class NewCharacterActivity : AppCompatActivity() {
                     }
                 }
 
+                characterClass.abilities.forEach {
+                    db.abilityDao().insert(it)
+                }
+
                 val myIntent = Intent(this, MainActivity::class.java)
                 startActivity(myIntent)
             }
