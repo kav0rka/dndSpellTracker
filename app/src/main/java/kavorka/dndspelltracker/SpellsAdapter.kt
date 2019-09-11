@@ -8,12 +8,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import kavorka.dndspelltracker.data.Spells
 
 class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
-
-    private fun useSpell(lvl: Int) {
-        mCharacter.useSpell(lvl)
-    }
+    val list = mutableListOf<Spells>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_spell_slots, parent, false)
@@ -21,45 +19,34 @@ class SpellsAdapter(val mCharacter: CharacterViewModel) : RecyclerView.Adapter<S
     }
 
     override fun getItemCount(): Int {
-        var count = 0
-        for (i in mCharacter.getSpellSlots()) {
-            if (i > 0) count++
-        }
-        return count
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val used = mCharacter.spellsUsed[position]
-        val max = mCharacter.getSpellSlots()[position]
-
-        holder.spellLevel.text = "Level " + (position + 1) + ":  "
-        holder.spellSlots.text = (max - used).toString() + " / " + max
-
-        holder.spellDown.setOnClickListener {
-            mCharacter.useSpell(position)
-            notifyItemChanged(position)
-        }
-
-        holder.spellUp.setOnClickListener {
-            mCharacter.unuseSpell(position)
-            notifyItemChanged(position)
-        }
+        holder.updateView(position)
+//
+//        holder.spellDown.setOnClickListener {
+//            mCharacter.useSpell(position)
+//            notifyItemChanged(position)
+//        }
+//
+//        holder.spellUp.setOnClickListener {
+//            mCharacter.unuseSpell(position)
+//            notifyItemChanged(position)
+//        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var parentLayout: ConstraintLayout
-        internal var spellLevel: TextView
-        internal var spellSlots: TextView
+        var spellLevel = itemView.findViewById<TextView>(R.id.textViewLvl)
+        var spellSlots = itemView.findViewById<TextView>(R.id.textViewSlotsUsed)
+        var spellUp = itemView.findViewById<Button>(R.id.buttonSpellDown)
+        var spellDown = itemView.findViewById<Button>(R.id.buttonSpellUp)
 
-        internal var spellUp: Button
-        internal var spellDown: Button
 
-        init {
-            spellLevel = itemView.findViewById(R.id.textViewLvl)
-            spellSlots = itemView.findViewById(R.id.textViewSlotsUsed)
-            parentLayout = itemView.findViewById(R.id.spell_slot_parent)
-            spellDown = itemView.findViewById(R.id.buttonSpellDown)
-            spellUp = itemView.findViewById(R.id.buttonSpellUp)
+        fun updateView(index: Int) {
+            val spells = list[index]
+            spellLevel.text = "Level " + spells.level.toString() + ":"
+            spellSlots.text = spells.used.toString() + "/" + spells.max.toString()
         }
     }
 

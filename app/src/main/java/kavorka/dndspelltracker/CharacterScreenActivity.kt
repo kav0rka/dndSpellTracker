@@ -1,6 +1,7 @@
 package kavorka.dndspelltracker
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 
@@ -15,7 +16,8 @@ import kotlin.concurrent.thread
 class CharacterScreenActivity : AppCompatActivity() {
     lateinit var viewModel: CharacterViewModel
     lateinit var playerCharacter: PlayerCharacter
-    lateinit var mRecyclerView: RecyclerView
+    lateinit var spellRecycler: RecyclerView
+    lateinit var spellsAdapter: SpellsAdapter
     var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,21 +26,28 @@ class CharacterScreenActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
+        initRecyclerView()
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(intent.getStringExtra("Name"))
             val nameTextView = findViewById<TextView>(R.id.textViewName)
             name = playerCharacter.name
             nameTextView.text = name
-            viewModel.level = playerCharacter.level
+            val spells = db.spellsDao().getSpellsByCharacter(name)
+            spellsAdapter.list.addAll(spells)
+            spellsAdapter.notifyDataSetChanged()
+//            viewModel.level = playerCharacter.level
         }
-        initRecyclerView()
+
 
         ViewModelProviders.of(this)
                 .get(CharacterViewModel::class.java)
-                .getSpells(name).observe(this, Observer {
+                .getSpells(name)
+                .observe(this, Observer {
                     if (it != null) {
-//                        mRecyclerView.adapter
+//                        spellsAdapter.list.clear()
+//                        spellsAdapter.list.addAll(it)
+//                        spellsAdapter.notifyDataSetChanged()
                     }
                 })
 
@@ -61,16 +70,10 @@ class CharacterScreenActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        mRecyclerView = findViewById(R.id.recyclerView)
-        val adapter = SpellsAdapter(viewModel)
-        mRecyclerView.adapter = adapter
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun resetRecyclerView() {
-        for (i in 0..8) {
-            mRecyclerView.adapter!!.notifyItemChanged(i)
-        }
+        spellRecycler = findViewById(R.id.recyclerView)
+        spellsAdapter = SpellsAdapter(viewModel)
+        spellRecycler.adapter = spellsAdapter
+        spellRecycler.layoutManager = LinearLayoutManager(this)
     }
 
 }

@@ -2,12 +2,14 @@ package kavorka.dndspelltracker
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.data.Spells
 import kotlin.concurrent.thread
 
 
@@ -85,9 +87,38 @@ class NewCharacterActivity : AppCompatActivity() {
             // Save
             thread {
                 db.charactersDao().insert(newCharacter)
+                val characterClass = getClass(playerClass, level)
+                characterClass.getSpellSlots().forEachIndexed { index, i ->
+                    Log.d("index", index.toString())
+                    Log.d("spell", i.toString())
+                    if (i > 0) {
+                        Log.d("Inserting", index.toString())
+                        val spell = Spells(name, index + 1, i, 0)
+                        db.spellsDao().insert(spell)
+                    }
+                }
+
                 val myIntent = Intent(this, MainActivity::class.java)
                 startActivity(myIntent)
             }
+        }
+    }
+
+
+    fun getClass(characterClass: String, level: Int): CharacterClass {
+        return when (characterClass) {
+            bard -> Bard(level)
+            barbarian -> Barbarian(level)
+            cleric -> Cleric(level)
+            druid -> Druid(level)
+            fighter -> Fighter(level)
+            monk -> Monk(level)
+            paladin -> Paladin(level)
+            ranger -> Ranger(level)
+            rogue -> Rogue(level)
+            sorcerer -> Sorcerer(level)
+            warlock -> Warlock(level)
+            else -> Wizard(level)
         }
     }
 

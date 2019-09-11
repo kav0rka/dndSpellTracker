@@ -1,15 +1,18 @@
 package kavorka.dndspelltracker
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kavorka.dndspelltracker.data.Spells
 
 
-class CharacterViewModel() : ViewModel() {
-    private var spells: LiveData<Spells>? = null
-    fun getSpells(name: String) : LiveData<Spells> {
-        if (spells == null && name != "") {
-            spells = db.spellsDao().getSpellsByCharacter("")
+class CharacterViewModel: ViewModel() {
+    private var spells: LiveData<List<Spells>>? = null
+    fun getSpells(name: String) : LiveData<List<Spells>> {
+        Log.d("getting spells?", name)
+        if (spells == null) {
+            Log.d("spells get", name)
+            spells = db.spellsDao().getSpellsByCharacterLive(name)
         }
         return spells!!
     }

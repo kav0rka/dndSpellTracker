@@ -1,22 +1,15 @@
 package kavorka.dndspelltracker
 
+import android.app.ActivityManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import kavorka.dndspelltracker.data.CharacterDatabase
-import kavorka.dndspelltracker.data.PlayerCharacter
-import kotlin.concurrent.thread
-import android.content.Context.ACTIVITY_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.app.ActivityManager
-import android.content.Context
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
