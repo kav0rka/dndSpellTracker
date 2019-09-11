@@ -14,6 +14,9 @@ interface AbilityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(ability: Ability)
 
+    @Query("delete from ability where character = :character")
+    fun deleteAbilitiesByCharacter(character: String)
+
     @Query("delete from ability where character = :character and name = :name")
     fun deleteAbilitiesByCharacterAndName(character: String, name: String)
 }

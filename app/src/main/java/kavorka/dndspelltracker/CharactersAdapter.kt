@@ -65,6 +65,8 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
                 deleteImageButton.setOnClickListener {
                     thread {
                         db.charactersDao().deleteCharacterByName(playerCharacter.name)
+                        db.spellsDao().deleteSpellsByCharacter(playerCharacter.name)
+                        db.abilityDao().deleteAbilitiesByCharacter(playerCharacter.name)
                     }
                 }
 
