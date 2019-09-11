@@ -2,10 +2,10 @@ package kavorka.dndspelltracker.data
 
 import androidx.room.Entity
 
-@Entity(primaryKeys = ["character", "level"])
-data class Spells(
+@Entity(primaryKeys = ["character", "name"])
+data class Ability(
         val character: String,
-        val level: Int,
+        val name: String,
         val max: Int,
         var used: Int
 )
