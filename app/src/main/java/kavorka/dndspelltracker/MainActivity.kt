@@ -19,18 +19,18 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
-val bard = "Bard"
-val barbarian = "Barbarian"
-val cleric = "Cleric"
-val druid = "Druid"
-val fighter = "Fighter"
-val monk = "Monk"
-val paladin = "Paladin"
-val ranger = "Ranger"
-val rogue = "Rogue"
-val sorcerer = "Sorcerer"
-val warlock = "Warlock"
-val wizard = "Wizard"
+const val bard = "Bard"
+const val barbarian = "Barbarian"
+const val cleric = "Cleric"
+const val druid = "Druid"
+const val fighter = "Fighter"
+const val monk = "Monk"
+const val paladin = "Paladin"
+const val ranger = "Ranger"
+const val rogue = "Rogue"
+const val sorcerer = "Sorcerer"
+const val warlock = "Warlock"
+const val wizard = "Wizard"
 
 lateinit var db: CharacterDatabase
 

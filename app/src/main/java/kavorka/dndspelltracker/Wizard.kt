@@ -4,14 +4,14 @@ import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
 // Sub classes
-val abjuration = "Abjuration"
-val conjuration = "Conjuration"
-val divination = "Divination"
-val enchantment = "Enchantment"
-val evocation = "Evocation"
-val illusion = "Illusion"
-val necromancy = "Necromancy"
-val transmutation = "Transmutation"
+const val abjuration = "Abjuration"
+const val conjuration = "Conjuration"
+const val divination = "Divination"
+const val enchantment = "Enchantment"
+const val evocation = "Evocation"
+const val illusion = "Illusion"
+const val necromancy = "Necromancy"
+const val transmutation = "Transmutation"
 
 class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
