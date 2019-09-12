@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker
 
+import android.util.Log
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
@@ -19,8 +20,7 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
     var subClasses = mutableListOf<String>()
 
     fun setSpellsFull(level: Int) {
-
-        if (level == 1) lvl1SpellMax = 2
+        if (level >= 1) lvl1SpellMax = 2
         if (level >= 2) lvl1SpellMax++
         if (level >= 3) {
             lvl1SpellMax++
@@ -72,7 +72,7 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
     }
 
     fun setSpellsSemi(level: Int) {
-        if (level == 2) lvl1SpellMax = 2
+        if (level >= 2) lvl1SpellMax = 2
         if (level >= 3) lvl1SpellMax++
         if (level >= 5) {
             lvl1SpellMax++
