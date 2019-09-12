@@ -13,6 +13,7 @@ import kotlin.concurrent.thread
 
 class NewCharacterActivity : AppCompatActivity() {
     private var name = ""
+    private var oldName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +59,11 @@ class NewCharacterActivity : AppCompatActivity() {
         }
 
 
-        // Set stats
+        // Set stats if editing a character
         if (name != "") {
             thread {
                 val playerCharacter = db.charactersDao().getCharacterByName(name)
+                oldName = name
 
                 val nameField = findViewById<EditText>(R.id.nameEditText)
                 val strength = findViewById<EditText>(R.id.strEditText)
@@ -113,12 +115,19 @@ class NewCharacterActivity : AppCompatActivity() {
             if (subClassSpinner.selectedItem != null) {
                 playerSubClass = subClassSpinner.selectedItem.toString()
             }
+            // Make the new character
             val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, level, strength, dexterity,
                     constitution, intelligence, wisdom, charisma)
 
             // Save
             thread {
                 db.charactersDao().insert(newCharacter)
+                // Delete old character if name has changed
+                if (name != oldName) {
+                    db.charactersDao().deleteCharacterByName(oldName)
+                }
+
+                // Insert spells
                 val characterClass = getClass(playerClass, newCharacter)
                 characterClass.getSpellSlots().forEachIndexed { index, i ->
                     if (i > 0) {
@@ -129,12 +138,14 @@ class NewCharacterActivity : AppCompatActivity() {
                     }
                 }
 
+                // Insert abilities
                 db.abilityDao().deleteAbilitiesByCharacter(name)
                 characterClass.abilities.forEach {
                     it.character = name
                     db.abilityDao().insert(it)
                 }
 
+                // Go back to main activity
                 val myIntent = Intent(this, MainActivity::class.java)
                 startActivity(myIntent)
             }
