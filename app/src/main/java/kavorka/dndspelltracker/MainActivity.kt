@@ -1,5 +1,7 @@
 package kavorka.dndspelltracker
 
+import android.app.ActivityManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
 import android.content.Intent

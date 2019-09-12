@@ -2,7 +2,6 @@ package kavorka.dndspelltracker
 
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 
@@ -35,6 +34,7 @@ class CharacterScreenActivity : AppCompatActivity() {
         val nameTextView = findViewById<TextView>(R.id.textViewName)
         nameTextView.text = name
 
+        val hpTextView = findViewById<TextView>(R.id.textViewHP)
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
@@ -46,14 +46,15 @@ class CharacterScreenActivity : AppCompatActivity() {
 
             viewModel.abilities.clear()
             viewModel.abilities.addAll(db.abilityDao().getAbilitiesByCharacter(name))
-            Log.d("abilities", viewModel.abilities.toString())
             abilitiesAdapter.abilitiesList.addAll(viewModel.abilities)
             abilitiesAdapter.notifyDataSetChanged()
 
+            viewModel.hitPoints = playerCharacter.hp
+            hpTextView.text = "HP:  " + playerCharacter.hp.toString() + " / " + playerCharacter.maxHP.toString()
         }
 
-//        val hpTextView = findViewById<TextView>(R.id.textViewHP)
-//        hpTextView.text = playerCharacter.hitPoints.toString() + ""
+
+
 
         val btnShortRest = findViewById<Button>(R.id.buttonShortRest)
         val btnLongRest = findViewById<Button>(R.id.buttonLongRest)

@@ -24,10 +24,10 @@
         android:id="@+id/strTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="32dp"
         android:text="Str:"
         app:layout_constraintStart_toStartOf="@+id/nameEditText"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/maxHPTextView" />
 
     <TextView
         android:id="@+id/dexTextView"
@@ -213,4 +213,24 @@
         app:layout_constraintBottom_toBottomOf="@+id/subClassTextView"
         app:layout_constraintStart_toStartOf="@+id/classSpinner"
         app:layout_constraintTop_toTopOf="@+id/subClassTextView" />
+
+    <TextView
+        android:id="@+id/maxHPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Max HP:"
+        app:layout_constraintStart_toStartOf="@+id/lvlTextView"
+        app:layout_constraintTop_toBottomOf="@+id/lvlTextView" />
+
+    <EditText
+        android:id="@+id/maxHPEditText"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="10"
+        app:layout_constraintBottom_toBottomOf="@+id/maxHPTextView"
+        app:layout_constraintStart_toStartOf="@+id/levelSpinner"
+        app:layout_constraintTop_toTopOf="@+id/maxHPTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

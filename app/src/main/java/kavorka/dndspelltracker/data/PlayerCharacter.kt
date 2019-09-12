@@ -15,5 +15,7 @@ data class PlayerCharacter(
         var constitution: Int,
         var intelligence: Int,
         var wisdom: Int,
-        var charisma: Int
+        var charisma: Int,
+        var maxHP: Int=10,
+        var hp: Int=10
 )

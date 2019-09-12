@@ -72,6 +72,7 @@ class NewCharacterActivity : AppCompatActivity() {
                 val intelligence = findViewById<EditText>(R.id.intEditText)
                 val wisdom = findViewById<EditText>(R.id.wisEditText)
                 val charisma = findViewById<EditText>(R.id.chaEditText)
+                val hp = findViewById<EditText>(R.id.maxHPEditText)
 
                 nameField.setText(name)
                 levelSpinner.setSelection(playerCharacter.level -1)
@@ -92,6 +93,7 @@ class NewCharacterActivity : AppCompatActivity() {
                 intelligence.setText(playerCharacter.intelligence.toString())
                 wisdom.setText(playerCharacter.wisdom.toString())
                 charisma.setText(playerCharacter.charisma.toString())
+                hp.setText(playerCharacter.maxHP.toString())
             }
         }
 
@@ -110,14 +112,18 @@ class NewCharacterActivity : AppCompatActivity() {
             val wisdom = findViewById<EditText>(R.id.wisEditText).text.toString().toInt()
             val charisma = findViewById<EditText>(R.id.chaEditText).text.toString().toInt()
             val level = levelSpinner.selectedItem.toString().toInt()
+            val maxHP = findViewById<EditText>(R.id.maxHPEditText).text.toString().toInt()
+
+            // Class
             val playerClass = classSpinner.selectedItem.toString()
             var playerSubClass = ""
             if (subClassSpinner.selectedItem != null) {
                 playerSubClass = subClassSpinner.selectedItem.toString()
             }
+
             // Make the new character
             val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, level, strength, dexterity,
-                    constitution, intelligence, wisdom, charisma)
+                    constitution, intelligence, wisdom, charisma, maxHP, maxHP)
 
             // Save
             thread {
