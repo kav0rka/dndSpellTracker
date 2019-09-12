@@ -6,13 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.Spells
 import kotlin.concurrent.thread
 
 class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.Adapter<SpellsAdapter.ViewHolder>() {
     val spellList = mutableListOf<Spells>()
-    val abilityList = mutableListOf<Ability>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_spell_slots, parent, false)
@@ -24,7 +22,7 @@ class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.A
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.updateView(position)
 
-        holder.spellDown.setOnClickListener {
+        holder.itemDown.setOnClickListener {
             characterViewModel.useSpell(position)
             thread {
                 db.spellsDao().insert(characterViewModel.spells[position])
@@ -32,7 +30,7 @@ class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.A
             notifyItemChanged(position)
         }
 
-        holder.spellUp.setOnClickListener {
+        holder.itemUp.setOnClickListener {
             characterViewModel.unUseSpell(position)
             thread {
                 db.spellsDao().insert(characterViewModel.spells[position])
@@ -42,16 +40,16 @@ class SpellsAdapter(val characterViewModel: CharacterViewModel) : RecyclerView.A
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var spellLevel = itemView.findViewById<TextView>(R.id.textViewLvl)
-        var spellSlots = itemView.findViewById<TextView>(R.id.textViewSlotsUsed)
-        var spellUp = itemView.findViewById<ImageButton>(R.id.buttonSpellDown)
-        var spellDown = itemView.findViewById<ImageButton>(R.id.buttonSpellUp)
+        var name = itemView.findViewById<TextView>(R.id.textViewName)
+        var used = itemView.findViewById<TextView>(R.id.textViewUsed)
+        var itemUp = itemView.findViewById<ImageButton>(R.id.buttonDown)
+        var itemDown = itemView.findViewById<ImageButton>(R.id.buttonUp)
 
 
         fun updateView(index: Int) {
             val spells = spellList[index]
-            spellLevel.text = "Level " + spells.level.toString() + ":"
-            spellSlots.text = spells.used.toString() + "/" + spells.max.toString()
+            name.text = "Level " + spells.level.toString() + ":"
+            used.text = spells.used.toString() + "/" + spells.max.toString()
         }
     }
 

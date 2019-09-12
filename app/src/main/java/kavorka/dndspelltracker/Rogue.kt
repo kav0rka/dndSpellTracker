@@ -1,3 +1,5 @@
 package kavorka.dndspelltracker
 
-class Rogue internal constructor(level: Int) : CharacterClass()
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)

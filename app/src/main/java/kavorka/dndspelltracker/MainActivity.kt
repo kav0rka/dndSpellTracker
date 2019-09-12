@@ -19,8 +19,6 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
-
-
 val bard = "Bard"
 val barbarian = "Barbarian"
 val cleric = "Cleric"

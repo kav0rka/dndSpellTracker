@@ -1,12 +1,14 @@
 package kavorka.dndspelltracker
 
-class Warlock internal constructor(level: Int) : CharacterClass() {
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpells(level)
+        setSpells(playerCharacter.level)
     }
-    fun setSpells(level: Int) {
 
+    fun setSpells(level: Int) {
         if (level == 1)
             lvl1SpellMax = 1
         else if (level == 2)

@@ -1,3 +1,5 @@
 package kavorka.dndspelltracker
 
-class Fighter internal constructor(level: Int) : CharacterClass()
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)

@@ -1,8 +1,10 @@
 package kavorka.dndspelltracker
 
-class Cleric internal constructor(level: Int) : CharacterClass() {
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpellsFull(level)
+        setSpellsFull(playerCharacter.level)
     }
 }

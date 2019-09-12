@@ -8,6 +8,7 @@ data class PlayerCharacter(
         @PrimaryKey
         val name: String,
         val characterClass: String,
+        val characterSubClass: String,
         var level: Int,
         var strength: Int,
         var dexterity: Int,

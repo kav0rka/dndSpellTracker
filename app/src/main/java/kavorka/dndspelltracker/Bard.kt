@@ -1,8 +1,10 @@
 package kavorka.dndspelltracker
 
-class Bard internal constructor(level: Int) : CharacterClass() {
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpellsFull(level)
+        setSpellsFull(playerCharacter.level)
     }
 }

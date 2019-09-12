@@ -1,8 +1,9 @@
 package kavorka.dndspelltracker
 
 import kavorka.dndspelltracker.data.Ability
+import kavorka.dndspelltracker.data.PlayerCharacter
 
-open class CharacterClass {
+open class CharacterClass(val playerCharacter: PlayerCharacter) {
 
     var lvl1SpellMax: Int=0
     var lvl2SpellMax: Int=0
@@ -15,6 +16,7 @@ open class CharacterClass {
     var lvl9SpellMax: Int=0
 
     var abilities = mutableListOf<Ability>()
+    var subClasses = mutableListOf<String>()
 
     fun setSpellsFull(level: Int) {
 
@@ -100,6 +102,10 @@ open class CharacterClass {
         slots[8] = lvl9SpellMax
         return slots
     }
+
+//    fun getSubClasses(): List<String> {
+//        return List()
+//    }
 
 
 

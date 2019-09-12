@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textViewLvl"
+        android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textViewSlotsUsed"
+        android:id="@+id/textViewUsed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="4/4"
-        app:layout_constraintStart_toEndOf="@+id/textViewLvl"
+        app:layout_constraintStart_toEndOf="@+id/textViewName"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
-        android:id="@+id/buttonSpellUp"
+        android:id="@+id/buttonUp"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="8dp"
@@ -41,13 +41,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/buttonSpellDown"
+        android:id="@+id/buttonDown"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:background="@android:drawable/arrow_down_float"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSpellUp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUp"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

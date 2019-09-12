@@ -2,6 +2,7 @@ package kavorka.dndspelltracker
 
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 
@@ -28,8 +29,9 @@ class CharacterScreenActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProviders.of(this).get(CharacterViewModel::class.java)
-        initRecyclerView()
         name = intent.getStringExtra("Name")
+        initRecyclerViews()
+
         val nameTextView = findViewById<TextView>(R.id.textViewName)
         nameTextView.text = name
 
@@ -44,10 +46,11 @@ class CharacterScreenActivity : AppCompatActivity() {
 
             viewModel.abilities.clear()
             viewModel.abilities.addAll(db.abilityDao().getAbilitiesByCharacter(name))
+            Log.d("abilities", viewModel.abilities.toString())
+            abilitiesAdapter.abilitiesList.addAll(viewModel.abilities)
+            abilitiesAdapter.notifyDataSetChanged()
 
         }
-
-
 
 //        val hpTextView = findViewById<TextView>(R.id.textViewHP)
 //        hpTextView.text = playerCharacter.hitPoints.toString() + ""
@@ -71,13 +74,23 @@ class CharacterScreenActivity : AppCompatActivity() {
 
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerViews() {
+        // Spells
         spellRecycler = findViewById(R.id.spellsRecyclerView)
         spellsAdapter = SpellsAdapter(viewModel)
         spellRecycler.adapter = spellsAdapter
         spellRecycler.layoutManager = LinearLayoutManager(this)
+
+        // Abilities
+        abilitiesRecycler = findViewById(R.id.abilitiesRecyclerView)
+        abilitiesAdapter = AbilitiesAdapter(viewModel)
+        abilitiesRecycler.adapter = abilitiesAdapter
+        abilitiesRecycler.layoutManager = LinearLayoutManager(this)
+
+
         val itemDecor = DividerItemDecoration(this, ClipDrawable.HORIZONTAL)
         spellRecycler.addItemDecoration(itemDecor)
+        abilitiesRecycler.addItemDecoration(itemDecor)
     }
 
 }

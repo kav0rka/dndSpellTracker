@@ -21,13 +21,27 @@ class CharacterViewModel: ViewModel() {
         }
     }
 
-
     fun unUseSpell(lvl: Int) {
         val spell = spells[lvl]
         if (spell.used > 0) {
             spell.used--
         }
     }
+
+    fun useAbility(position: Int) {
+        val ability = abilities[position]
+        if (ability.used < ability.max) {
+            ability.used++
+        }
+    }
+
+    fun unUseAbility(position: Int) {
+        val ability = abilities[position]
+        if (ability.used > 0) {
+            ability.used--
+        }
+    }
+
 
 
     fun doShortRest() {}

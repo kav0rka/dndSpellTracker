@@ -1,3 +1,5 @@
 package kavorka.dndspelltracker
 
-class Barbarian internal constructor(level: Int) : CharacterClass()
+import kavorka.dndspelltracker.data.PlayerCharacter
+
+class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
