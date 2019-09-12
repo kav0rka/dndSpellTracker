@@ -28,9 +28,12 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
         subClasses.add(transmutation)
 
         if (playerCharacter.level >= 2) {
-            val portent = Ability("", "Portent", 2)
-            abilities.add(portent)
+            if (playerCharacter.characterSubClass == divination) {
+                val portent = Ability("", "Portent", 2)
+                abilities.add(portent)
+            }
         }
+
     }
 
 }
