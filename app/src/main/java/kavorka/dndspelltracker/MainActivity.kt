@@ -1,7 +1,5 @@
 package kavorka.dndspelltracker
 
-import android.app.ActivityManager
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
 import android.content.Intent
@@ -14,10 +12,7 @@ import kavorka.dndspelltracker.data.CharacterDatabase
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
 
 const val bard = "Bard"
 const val barbarian = "Barbarian"

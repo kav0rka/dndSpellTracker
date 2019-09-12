@@ -16,18 +16,19 @@ const val transmutation = "Transmutation"
 class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpellsFull(playerCharacter.level)
+        val level = playerCharacter.level
+        setSpellsFull(level)
 
-        subClasses.add(abjuration)
-        subClasses.add(conjuration)
-        subClasses.add(divination)
-        subClasses.add(enchantment)
-        subClasses.add(evocation)
-        subClasses.add(illusion)
-        subClasses.add(necromancy)
-        subClasses.add(transmutation)
+        if (level >= 2) {
+            subClasses.add(abjuration)
+            subClasses.add(conjuration)
+            subClasses.add(divination)
+            subClasses.add(enchantment)
+            subClasses.add(evocation)
+            subClasses.add(illusion)
+            subClasses.add(necromancy)
+            subClasses.add(transmutation)
 
-        if (playerCharacter.level >= 2) {
             if (playerCharacter.characterSubClass == divination) {
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
                 val portent = Ability("", "Portent", portentMax)

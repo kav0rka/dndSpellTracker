@@ -7,7 +7,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.Ability
-import kavorka.dndspelltracker.data.Spells
 import kotlin.concurrent.thread
 
 class AbilitiesAdapter(val characterViewModel: CharacterViewModel): RecyclerView.Adapter<AbilitiesAdapter.ViewHolder>() {

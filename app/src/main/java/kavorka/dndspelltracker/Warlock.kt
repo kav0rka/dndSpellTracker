@@ -2,10 +2,22 @@ package kavorka.dndspelltracker
 
 import kavorka.dndspelltracker.data.PlayerCharacter
 
+// Sub classes
+const val chain = "Chain"
+const val blade = "Blade"
+const val tome = "Tome"
+
 class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpells(playerCharacter.level)
+        val level = playerCharacter.level
+        setSpells(level)
+
+        if (level >= 3) {
+            subClasses.add(chain)
+            subClasses.add(blade)
+            subClasses.add(tome)
+        }
     }
 
     fun setSpells(level: Int) {

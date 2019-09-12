@@ -30,6 +30,7 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameText = view.findViewById<TextView>(R.id.nameTextView)
+        val classText = view.findViewById<TextView>(R.id.classTextView)
         val levelText = view.findViewById<TextView>(R.id.levelTextView)
         val newCharacterButton = view.findViewById<Button>(R.id.newCharacterButton)
         val goToCharacterButton = view.findViewById<Button>(R.id.goToCharacterButton)
@@ -39,6 +40,7 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
 
         fun updateView(index: Int) {
             nameText.visibility = View.GONE
+            classText.visibility = View.GONE
             levelText.visibility = View.GONE
             goToCharacterButton.visibility = View.GONE
             newCharacterButton.visibility = View.GONE
@@ -49,6 +51,7 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
                 val playerCharacter = list[index]
 
                 nameText.visibility = View.VISIBLE
+                classText.visibility = View.VISIBLE
                 levelText.visibility = View.VISIBLE
                 goToCharacterButton.visibility = View.VISIBLE
                 editImageButton.visibility = View.VISIBLE
@@ -71,6 +74,12 @@ class CharactersAdapter(val context: Context, val launchCharacterScreenActivity:
                 }
 
                 nameText.text = playerCharacter.name
+                var playerClass = playerCharacter.characterClass
+                val playerSubClass = playerCharacter.characterSubClass
+                if (playerSubClass != "") {
+                    playerClass += " (" + playerSubClass + ")"
+                }
+                classText.text = playerClass
                 levelText.text = "Level: " + playerCharacter.level
             } else {
                 newCharacterButton.visibility = View.VISIBLE

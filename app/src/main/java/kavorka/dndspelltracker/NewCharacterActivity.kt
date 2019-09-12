@@ -2,12 +2,12 @@ package kavorka.dndspelltracker
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
+import kotlinx.android.synthetic.main.activity_new_character.*
 import kotlin.concurrent.thread
 
 
@@ -28,14 +28,14 @@ class NewCharacterActivity : AppCompatActivity() {
         // Sub class spinner
         val subClassNames = getSubClasses(classSpinner.selectedItem.toString())
         val subClassSpinner = findViewById<Spinner>(R.id.subClassSpinner)
-        var subClassAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subClassNames)
+        val subClassAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subClassNames)
         subClassSpinner.adapter = subClassAdapter
 
         // Update sub class when class is selected
         classSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 subClassAdapter.clear()
-                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString()))
+                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), levelSpinner.selectedItemPosition +1))
                 subClassAdapter.notifyDataSetChanged()
             }
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
@@ -46,6 +46,16 @@ class NewCharacterActivity : AppCompatActivity() {
         val levelSpinner = findViewById<Spinner>(R.id.levelSpinner)
         val levelArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, levels)
         levelSpinner.adapter = levelArrayAdapter
+
+        // Update sub class when level is selected
+        levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                subClassAdapter.clear()
+                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level=pos +1))
+                subClassAdapter.notifyDataSetChanged()
+            }
+            override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
+        }
 
 
         // Set stats
@@ -99,10 +109,13 @@ class NewCharacterActivity : AppCompatActivity() {
             val charisma = findViewById<EditText>(R.id.chaEditText).text.toString().toInt()
             val level = levelSpinner.selectedItem.toString().toInt()
             val playerClass = classSpinner.selectedItem.toString()
-            val playerSubClass = subClassSpinner.selectedItem.toString()
+            var playerSubClass = ""
+            if (subClassSpinner.selectedItem != null) {
+                playerSubClass = subClassSpinner.selectedItem.toString()
+            }
             val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, level, strength, dexterity,
                     constitution, intelligence, wisdom, charisma)
-            Log.d("Player Sub Class", playerSubClass)
+
             // Save
             thread {
                 db.charactersDao().insert(newCharacter)
@@ -129,7 +142,7 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
 
-    fun getClass(characterClass: String, playerCharacter: PlayerCharacter): CharacterClass {
+    private fun getClass(characterClass: String, playerCharacter: PlayerCharacter): CharacterClass {
         return when (characterClass) {
             bard -> Bard(playerCharacter)
             barbarian -> Barbarian(playerCharacter)
@@ -146,23 +159,8 @@ class NewCharacterActivity : AppCompatActivity() {
         }
     }
 
-    fun getSubClasses(characterClass: String): List<String> {
-        val playerCharacter = PlayerCharacter("", characterClass, "", 1,10, 10, 10, 10, 10, 10)
-//        Log.d("class", characterClass)
-//        return when (characterClass) {
-//            bard -> Bard(playerCharacter).subClasses
-//            barbarian -> Barbarian(playerCharacter).subClasses
-//            cleric -> Cleric(playerCharacter).subClasses
-//            druid -> Druid(playerCharacter).subClasses
-//            fighter -> Fighter(playerCharacter).subClasses
-//            monk -> Monk(playerCharacter).subClasses
-//            paladin -> Paladin(playerCharacter).subClasses
-//            ranger -> Ranger(playerCharacter).subClasses
-//            rogue -> Rogue(playerCharacter).subClasses
-//            sorcerer -> Sorcerer(playerCharacter).subClasses
-//            warlock -> Warlock(playerCharacter).subClasses
-//            else -> Wizard(playerCharacter).subClasses
-//        }
+    private fun getSubClasses(characterClass: String, level: Int=1): List<String> {
+        val playerCharacter = PlayerCharacter("", characterClass, "", level,10, 10, 10, 10, 10, 10)
         return getClass(characterClass, playerCharacter).subClasses
     }
 
