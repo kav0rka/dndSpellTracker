@@ -29,7 +29,8 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
 
         if (playerCharacter.level >= 2) {
             if (playerCharacter.characterSubClass == divination) {
-                val portent = Ability("", "Portent", 2)
+                val portentMax = if (playerCharacter.level >= 14) 3 else  2
+                val portent = Ability("", "Portent", portentMax)
                 abilities.add(portent)
             }
         }

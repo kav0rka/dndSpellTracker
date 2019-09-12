@@ -48,7 +48,7 @@ class AbilitiesAdapter(val characterViewModel: CharacterViewModel): RecyclerView
 
         fun updateView(index: Int) {
             val ability = abilitiesList[index]
-            name.text = ability.name
+            name.text = ability.name + ":"
             used.text = ability.used.toString() + "/" + ability.max.toString()
         }
     }
