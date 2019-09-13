@@ -20,7 +20,7 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         }
     }
 
-    fun setSpells(level: Int) {
+    private fun setSpells(level: Int) {
         if (level == 1)
             lvl1SpellMax = 1
         else if (level == 2)

@@ -1,6 +1,5 @@
 package kavorka.dndspelltracker
 
-import android.util.Log
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
@@ -86,7 +85,8 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
         if (level >= 17) {
             lvl4SpellMax++
             lvl5SpellMax = 1
-        } else if (level >= 19)lvl5SpellMax++
+        }
+        if (level >= 19)lvl5SpellMax++
     }
 
     fun getSpellSlots(): IntArray {

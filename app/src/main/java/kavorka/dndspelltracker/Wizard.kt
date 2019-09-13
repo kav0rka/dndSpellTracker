@@ -31,7 +31,7 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(illusion)
             subClasses.add(necromancy)
             subClasses.add(transmutation)
-            
+
 
             // Sub class abilities
             val sub = playerCharacter.characterSubClass
