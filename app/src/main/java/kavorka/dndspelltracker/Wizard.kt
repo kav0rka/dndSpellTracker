@@ -29,10 +29,27 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(necromancy)
             subClasses.add(transmutation)
 
-            if (playerCharacter.characterSubClass == divination) {
+            val sub = playerCharacter.characterSubClass
+            if (sub == divination) {
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
-                val portent = Ability("", "Portent", portentMax)
-                abilities.add(portent)
+                abilities.add(Ability("", "Portent", portentMax))
+
+                if (level >= 10) {
+                    abilities.add(Ability("", "Third Eye", 1, resetOnShort = true))
+                }
+            } else if (sub == enchantment) {
+                abilities.add(Ability("", "Hypnotic Gaze", 1))
+                if (level >= 6) {
+                    abilities.add(Ability("", "Instinctive Charm", 1))
+                }
+            } else if (sub == illusion) {
+                if (level >= 10) {
+                    abilities.add(Ability("", "Illusory Self", 1, resetOnShort = true))
+                }
+            } else if (sub == transmutation) {
+                if (level >= 10) {
+                    abilities.add(Ability("", "Shape Changer", 1, resetOnShort = true))
+                }
             }
         }
 
