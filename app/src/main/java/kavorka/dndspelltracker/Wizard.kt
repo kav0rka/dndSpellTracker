@@ -29,7 +29,9 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(necromancy)
             subClasses.add(transmutation)
 
+            // Sub class abilities
             val sub = playerCharacter.characterSubClass
+
             if (sub == divination) {
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
                 abilities.add(Ability("", "Portent", portentMax))
