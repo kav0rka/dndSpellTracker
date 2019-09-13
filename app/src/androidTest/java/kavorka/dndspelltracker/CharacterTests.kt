@@ -12,10 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import android.content.Context.ACTIVITY_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.app.ActivityManager
-import android.content.Context
+
 
 
 @RunWith(AndroidJUnit4::class)
@@ -23,8 +20,8 @@ class CharacterTests {
     val appContext = InstrumentationRegistry.getTargetContext()
     val db = Room.databaseBuilder(appContext, CharacterDatabase::class.java, "CharacterDatabase").build()
 
-    val testCharacter = PlayerCharacter("Gideon", 8, 14, 14, 16, 12, 10)
-    val testSpells = Spells(testCharacter.name)
+    val testCharacter = PlayerCharacter("Gideon", "", "", 1,8, 14, 14, 16, 12, 10)
+    val testSpells = Spells(testCharacter.name, testCharacter.level, 1, 1)
 
     @Test
     fun characterTest() {

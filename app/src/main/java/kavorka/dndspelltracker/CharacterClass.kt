@@ -103,5 +103,4 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
         return slots
     }
 
-
 }

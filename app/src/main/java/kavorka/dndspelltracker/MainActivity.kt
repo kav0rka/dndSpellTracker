@@ -29,6 +29,13 @@ const val sorcerer = "Sorcerer"
 const val warlock = "Warlock"
 const val wizard = "Wizard"
 
+fun getAbilityMod(stat: Int): Int {
+    return when (stat >= 10) {
+        true -> (stat - 10) / 2
+        false -> (stat - 11) / 2
+    }
+}
+
 lateinit var db: CharacterDatabase
 
 class MainActivity : AppCompatActivity() {
