@@ -10,9 +10,6 @@ class CharacterViewModel: ViewModel() {
     var abilities = mutableListOf<Ability>()
     var hitPoints: Int =0
 
-//    var level: Int = 5
-//    var name: String = ""
-
 
     fun useSpell(lvl: Int) {
         val spell = spells[lvl]

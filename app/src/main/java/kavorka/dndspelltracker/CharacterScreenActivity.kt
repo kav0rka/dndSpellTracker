@@ -2,7 +2,10 @@ package kavorka.dndspelltracker
 
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +37,8 @@ class CharacterScreenActivity : AppCompatActivity() {
         val nameTextView = findViewById<TextView>(R.id.textViewName)
         nameTextView.text = name
 
-        val hpTextView = findViewById<TextView>(R.id.textViewHP)
+        val hpEditText = findViewById<EditText>(R.id.hpEditText)
+        val hpMaxText = findViewById<TextView>(R.id.hpMaxTextView)
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
@@ -50,10 +54,31 @@ class CharacterScreenActivity : AppCompatActivity() {
             abilitiesAdapter.notifyDataSetChanged()
 
             viewModel.hitPoints = playerCharacter.hp
-            hpTextView.text = "HP:  " + playerCharacter.hp.toString() + " / " + playerCharacter.maxHP.toString()
+            hpEditText.setText(viewModel.hitPoints.toString())
+            hpMaxText.text = (playerCharacter.maxHP.toString())
         }
 
+        hpEditText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null) {
+                    val hp = s.toString()
+                    if (hp != "") {
+                        viewModel.hitPoints = hp.toInt()
+                        thread {
+                            playerCharacter.hp = hp.toInt()
+                            db.charactersDao().insert(playerCharacter)
+                        }
+                    }
+                }
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
 
 
         val btnShortRest = findViewById<Button>(R.id.buttonShortRest)
@@ -72,6 +97,7 @@ class CharacterScreenActivity : AppCompatActivity() {
 //
         btnLongRest.setOnClickListener {
             viewModel.doLongRest()
+            viewModel.hitPoints = playerCharacter.maxHP
             thread {
                 viewModel.spells.forEach {
                     db.spellsDao().insert(it)
@@ -79,12 +105,12 @@ class CharacterScreenActivity : AppCompatActivity() {
                 viewModel.abilities.forEach {
                     db.abilityDao().insert(it)
                 }
+                db.charactersDao().insert(playerCharacter)
             }
+            hpEditText.setText(playerCharacter.maxHP.toString())
             abilitiesAdapter.notifyDataSetChanged()
             spellsAdapter.notifyDataSetChanged()
         }
-
-
     }
 
     private fun initRecyclerViews() {

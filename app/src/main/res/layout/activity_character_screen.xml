@@ -20,15 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewHP"
+        android:id="@+id/hpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="HP"
+        android:text="HP:"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/spellsRecyclerView"
@@ -72,8 +71,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"
-        app:layout_constraintStart_toStartOf="@+id/textViewHP"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHP" />
+        app:layout_constraintStart_toStartOf="@+id/hpTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hpTextView" />
 
     <TextView
         android:id="@+id/abilitiesTextView"
@@ -94,4 +93,25 @@
         app:layout_constraintEnd_toEndOf="@+id/spellsRecyclerView"
         app:layout_constraintStart_toStartOf="@+id/spellsRecyclerView"
         app:layout_constraintTop_toBottomOf="@+id/abilitiesTextView" />
+
+    <EditText
+        android:id="@+id/hpEditText"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hpTextView"
+        app:layout_constraintStart_toEndOf="@+id/hpTextView"
+        app:layout_constraintTop_toTopOf="@+id/hpTextView" />
+
+    <TextView
+        android:id="@+id/hpMaxTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HP"
+        app:layout_constraintBottom_toBottomOf="@+id/hpTextView"
+        app:layout_constraintStart_toEndOf="@+id/hpEditText"
+        app:layout_constraintTop_toTopOf="@+id/hpTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
