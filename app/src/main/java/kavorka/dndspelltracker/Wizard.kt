@@ -19,6 +19,9 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
         val level = playerCharacter.level
         setSpellsFull(level)
 
+        //Arcane recovery
+        abilities.add(Ability("", "Arcane Recovery", 1))
+
         if (level >= 2) {
             subClasses.add(abjuration)
             subClasses.add(conjuration)
@@ -28,6 +31,7 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(illusion)
             subClasses.add(necromancy)
             subClasses.add(transmutation)
+            
 
             // Sub class abilities
             val sub = playerCharacter.characterSubClass
