@@ -12,6 +12,7 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
 
     init {
         val level = playerCharacter.level
+        setSpells(level)
 
         abilities.add(Ability("", "Second Wind", 1, resetOnShort = true))
         if (level >= 2) {
