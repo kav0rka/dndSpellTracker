@@ -60,7 +60,15 @@ class CharacterScreenActivity : AppCompatActivity() {
         val btnLongRest = findViewById<Button>(R.id.buttonLongRest)
 
 
-        btnShortRest.setOnClickListener { viewModel.doShortRest() }
+        btnShortRest.setOnClickListener {
+            viewModel.doShortRest()
+            thread {
+                viewModel.abilities.forEach {
+                    db.abilityDao().insert(it)
+                }
+            }
+            abilitiesAdapter.notifyDataSetChanged()
+        }
 //
         btnLongRest.setOnClickListener {
             viewModel.doLongRest()
@@ -68,7 +76,11 @@ class CharacterScreenActivity : AppCompatActivity() {
                 viewModel.spells.forEach {
                     db.spellsDao().insert(it)
                 }
+                viewModel.abilities.forEach {
+                    db.abilityDao().insert(it)
+                }
             }
+            abilitiesAdapter.notifyDataSetChanged()
             spellsAdapter.notifyDataSetChanged()
         }
 
@@ -88,7 +100,7 @@ class CharacterScreenActivity : AppCompatActivity() {
         abilitiesRecycler.adapter = abilitiesAdapter
         abilitiesRecycler.layoutManager = LinearLayoutManager(this)
 
-
+        // Add Line spacer to both
         val itemDecor = DividerItemDecoration(this, ClipDrawable.HORIZONTAL)
         spellRecycler.addItemDecoration(itemDecor)
         abilitiesRecycler.addItemDecoration(itemDecor)

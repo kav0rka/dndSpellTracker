@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 
 
+// Classes
 const val bard = "Bard"
 const val barbarian = "Barbarian"
 const val cleric = "Cleric"
@@ -29,6 +30,7 @@ const val sorcerer = "Sorcerer"
 const val warlock = "Warlock"
 const val wizard = "Wizard"
 
+// Get the modifier for an ability score
 fun getAbilityMod(stat: Int): Int {
     return when (stat >= 10) {
         true -> (stat - 10) / 2
@@ -36,7 +38,11 @@ fun getAbilityMod(stat: Int): Int {
     }
 }
 
+// Database
 lateinit var db: CharacterDatabase
+
+
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView

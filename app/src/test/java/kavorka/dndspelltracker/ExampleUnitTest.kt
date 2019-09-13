@@ -4,7 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class UnitTest {
+class ExampleUnitTest {
 
     @Test
     fun ability10ModTest() {

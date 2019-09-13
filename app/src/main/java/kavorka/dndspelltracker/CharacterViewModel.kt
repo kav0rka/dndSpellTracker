@@ -44,9 +44,16 @@ class CharacterViewModel: ViewModel() {
 
 
 
-    fun doShortRest() {}
+    fun doShortRest() {
+        abilities.forEach {
+            if (it.resetOnShort) it.used = 0
+        }
+    }
 
     fun doLongRest() {
+        abilities.forEach {
+            it.used = 0
+        }
         resetSpells()
     }
 

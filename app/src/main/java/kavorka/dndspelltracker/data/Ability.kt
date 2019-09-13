@@ -7,5 +7,6 @@ data class Ability(
         var character: String,
         val name: String,
         val max: Int,
-        var used: Int=0
+        var used: Int=0,
+        var resetOnShort: Boolean=false
 )
