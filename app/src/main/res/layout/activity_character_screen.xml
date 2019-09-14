@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,36 +7,71 @@
     tools:context=".CharacterScreenActivity">
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/spellsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Name"
-        android:textSize="24sp"
+        android:layout_marginTop="32dp"
+        android:text="SPELLS:"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:typeface="normal"
+        app:layout_constraintStart_toStartOf="@+id/hpTextView"
+        app:layout_constraintTop_toBottomOf="@+id/hpTextView" />
 
-    <TextView
-        android:id="@+id/hpTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="HP:"
-        app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/spellsRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/spellsConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:maxHeight="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spellsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/spellsTextView">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/spellsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spellsTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/abilitiesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="ABILITIES:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintStart_toStartOf="@+id/spellsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/spellsConstraintLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/abilitiesConstrantLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxHeight="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonShortRest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/abilitiesTextView">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/abilitiesRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/buttonShortRest"
@@ -61,39 +95,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/spellsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="SPELLS:"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintStart_toStartOf="@+id/hpTextView"
-        app:layout_constraintTop_toBottomOf="@+id/hpTextView" />
-
-    <TextView
-        android:id="@+id/abilitiesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="ABILITIES:"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintStart_toStartOf="@+id/spellsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/spellsRecyclerView" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/abilitiesRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/spellsRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/spellsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/abilitiesTextView" />
-
     <EditText
         android:id="@+id/hpEditText"
         android:layout_width="30dp"
@@ -107,6 +108,28 @@
         app:layout_constraintTop_toTopOf="@+id/hpTextView" />
 
     <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="HP:"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+    <TextView
         android:id="@+id/hpMaxTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,4 +137,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/hpTextView"
         app:layout_constraintStart_toEndOf="@+id/hpEditText"
         app:layout_constraintTop_toTopOf="@+id/hpTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
