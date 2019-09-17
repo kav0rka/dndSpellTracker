@@ -81,9 +81,10 @@ class NewCharacterActivity : AppCompatActivity() {
                 classSpinner.setSelection(classPos)
                 // Set sub class
                 subClassAdapter.clear()
-                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString()))
+                val allSubClasses = getSubClasses(playerCharacter.characterClass, level=playerCharacter.level)
+                subClassAdapter.addAll(allSubClasses)
                 subClassAdapter.notifyDataSetChanged()
-                val subClassPos = subClassAdapter.getPosition(playerCharacter.characterSubClass)
+                val subClassPos = allSubClasses.indexOf(playerCharacter.characterSubClass)
                 subClassSpinner.setSelection(subClassPos)
 
                 // Set Stats
