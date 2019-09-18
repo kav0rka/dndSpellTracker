@@ -30,6 +30,11 @@ const val sorcerer = "Sorcerer"
 const val warlock = "Warlock"
 const val wizard = "Wizard"
 
+// Feats (that have abilities attached)
+const val lucky = "Lucky"
+const val magicInitiat = "Magic Initiate"
+const val martialAdept = "Martial Adept"
+
 // Get the modifier for an ability score
 fun getAbilityMod(stat: Int): Int {
     return when (stat >= 10) {

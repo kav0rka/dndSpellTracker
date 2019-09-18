@@ -27,7 +27,7 @@ class NewCharacterActivity : AppCompatActivity() {
         classSpinner.adapter = classArrayAdapter
 
         // Sub class spinner
-        val subClassNames = getSubClasses(classSpinner.selectedItem.toString())
+        val subClassNames = getSubClasses(classSpinner.selectedItem.toString(), 1)
         val subClassSpinner = findViewById<Spinner>(R.id.subClassSpinner)
         val subClassAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subClassNames)
         subClassSpinner.adapter = subClassAdapter
@@ -129,9 +129,12 @@ class NewCharacterActivity : AppCompatActivity() {
             // Save
             thread {
                 db.charactersDao().insert(newCharacter)
+
                 // Delete old character if name has changed
                 if (name != oldName) {
                     db.charactersDao().deleteCharacterByName(oldName)
+                    db.abilityDao().deleteAbilitiesByCharacter(oldName)
+                    db.spellsDao().deleteSpellsByCharacter(oldName)
                 }
 
                 // Insert spells
@@ -177,7 +180,7 @@ class NewCharacterActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSubClasses(characterClass: String, level: Int=1): List<String> {
+    private fun getSubClasses(characterClass: String, level: Int): List<String> {
         val playerCharacter = PlayerCharacter("", characterClass, "", level,10, 10, 10, 10, 10, 10)
         return getClass(characterClass, playerCharacter).subClasses
     }
