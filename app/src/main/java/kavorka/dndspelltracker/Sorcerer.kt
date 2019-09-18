@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker
 
+import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
 // Sub classes
@@ -9,9 +10,14 @@ const val wildMagic = "Wild Magic"
 class Sorcerer(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
-        setSpellsFull(playerCharacter.level)
+        val level =playerCharacter.level
+        setSpellsFull(level)
 
         subClasses.add(draconicBloodline)
         subClasses.add(wildMagic)
+
+        if (level >= 2) {
+            abilities.add(Ability("", "Sorcery Points", level))
+        }
     }
 }
