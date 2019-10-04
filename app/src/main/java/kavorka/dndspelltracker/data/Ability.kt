@@ -5,7 +5,7 @@ import androidx.room.Entity
 @Entity(primaryKeys = ["character", "name"])
 data class Ability(
         var character: String,
-        val name: String,
+        var name: String,
         val max: Int,
         var used: Int=0,
         var resetOnShort: Boolean=false

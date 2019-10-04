@@ -1,10 +1,14 @@
 package kavorka.dndspelltracker
 
 import android.content.Intent
+import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
 import kotlinx.android.synthetic.main.activity_new_character.*
@@ -14,6 +18,8 @@ import kotlin.concurrent.thread
 class NewCharacterActivity : AppCompatActivity() {
     private var name = ""
     private var oldName = ""
+    lateinit var abilityRecyclerView: RecyclerView
+    lateinit var abilityAdapter: NewAbilityAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +64,7 @@ class NewCharacterActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
+        initRecyclerViews()
 
         // Set stats if editing a character
         if (name != "") {
@@ -154,12 +161,26 @@ class NewCharacterActivity : AppCompatActivity() {
                     it.character = name
                     db.abilityDao().insert(it)
                 }
+                abilityAdapter.abilitiesList.forEach {
+                    it.character = name
+                    db.abilityDao().insert(it)
+                }
 
                 // Go back to main activity
                 val myIntent = Intent(this, MainActivity::class.java)
                 startActivity(myIntent)
             }
         }
+    }
+
+    private fun initRecyclerViews() {
+        abilityRecyclerView = findViewById(R.id.abilitiesRecyclerView)
+        abilityAdapter = NewAbilityAdapter()
+        abilityRecyclerView.adapter = abilityAdapter
+        abilityRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val itemDecor = DividerItemDecoration(this, ClipDrawable.HORIZONTAL)
+        abilityRecyclerView.addItemDecoration(itemDecor)
     }
 
 

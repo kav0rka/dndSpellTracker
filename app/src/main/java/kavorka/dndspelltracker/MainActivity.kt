@@ -32,7 +32,7 @@ const val wizard = "Wizard"
 
 // Feats (that have abilities attached)
 const val lucky = "Lucky"
-const val magicInitiat = "Magic Initiate"
+const val magicInitiate = "Magic Initiate"
 const val martialAdept = "Martial Adept"
 
 // Get the modifier for an ability score
