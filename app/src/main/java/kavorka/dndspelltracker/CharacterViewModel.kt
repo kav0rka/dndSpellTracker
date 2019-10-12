@@ -49,7 +49,8 @@ class CharacterViewModel: ViewModel() {
 
     fun doLongRest() {
         abilities.forEach {
-            it.used = 0
+            it.used -= it.resetOnLong
+            if (it.used <0) it.used = 0
         }
         resetSpells()
     }

@@ -18,6 +18,11 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
     var abilities = mutableListOf<Ability>()
     var subClasses = mutableListOf<String>()
 
+    init {
+        val hitDiceMax = playerCharacter.level
+        abilities.add(Ability("", "Hit Dice", hitDiceMax, resetOnLong=hitDiceMax/2))
+    }
+
     fun setSpellsFull(level: Int) {
         if (level >= 1) lvl1SpellMax = 2
         if (level >= 2) lvl1SpellMax++
