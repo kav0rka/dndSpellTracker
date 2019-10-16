@@ -14,6 +14,7 @@ import kavorka.dndspelltracker.data.CharacterDatabase
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
+import kavorka.dndspelltracker.data.Ability
 
 
 // Classes
@@ -34,6 +35,16 @@ const val wizard = "Wizard"
 const val lucky = "Lucky"
 const val magicInitiate = "Magic Initiate"
 const val martialAdept = "Martial Adept"
+
+// Get feat
+fun getFeat(feat: String): Ability {
+    return when(feat) {
+        lucky -> Ability("", lucky, 3, type="feat")
+        magicInitiate -> Ability("", magicInitiate, 1, type="feat")
+        martialAdept -> Ability("", martialAdept, 1, type="feat")
+        else -> Ability("", lucky, 3, type="feat")
+    }
+}
 
 // Get the modifier for an ability score
 fun getAbilityMod(stat: Int): Int {

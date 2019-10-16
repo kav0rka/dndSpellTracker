@@ -40,9 +40,6 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
                 abilities.add(Ability("", "Portent", portentMax))
 
-                // Testing for Gideon
-                abilities.add(Ability("", "Lucky", 3));
-
                 if (level >= 10) {
                     abilities.add(Ability("", "Third Eye", 1, resetOnShort = true))
                 }

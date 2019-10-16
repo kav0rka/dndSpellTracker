@@ -7,7 +7,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.Ability
 
-class NewAbilityAdapter : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){
+class NewAbilityAdapter(val viewModel: NewCharacterViewModel) : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){
     val abilitiesList = mutableListOf<Ability>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,7 +43,9 @@ class NewAbilityAdapter : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){
                 }
                 featSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                        abilitiesList[index].name = featSpinner.selectedItem.toString()
+                        var ability: Ability = getFeat(featSpinner.selectedItem.toString())
+                        abilitiesList[index] = ability
+//                        abilitiesList[index].name = featSpinner.selectedItem.toString()
                     }
                     override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
                 }
@@ -51,6 +53,7 @@ class NewAbilityAdapter : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){
 
                 deleteAbilityButton.visibility = View.VISIBLE
                 deleteAbilityButton.setOnClickListener {
+//                    viewModel.feats.removeAt(index)
                     abilitiesList.removeAt(index)
                     notifyDataSetChanged()
                 }
@@ -58,7 +61,8 @@ class NewAbilityAdapter : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){
             } else {
                 addAbilityButton.visibility = View.VISIBLE
                 addAbilityButton.setOnClickListener {
-                    val ability = Ability("", "", 1)
+                    val ability = getFeat(lucky)
+//                    viewModel.feats.add(ability)
                     abilitiesList.add(ability)
                     notifyDataSetChanged()
                 }

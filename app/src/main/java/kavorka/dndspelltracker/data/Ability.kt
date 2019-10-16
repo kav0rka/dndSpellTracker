@@ -10,5 +10,6 @@ data class Ability(
         var used: Int=0,
         var resetOnShort: Boolean=false,
         val resetOnLong: Int=max,
-        var additionalInfo: String=""
+        var additionalInfo: String="",
+        var type: String=""
 )

@@ -3,9 +3,12 @@ package kavorka.dndspelltracker
 import android.content.Intent
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +23,13 @@ class NewCharacterActivity : AppCompatActivity() {
     private var oldName = ""
     lateinit var abilityRecyclerView: RecyclerView
     lateinit var abilityAdapter: NewAbilityAdapter
+    lateinit var viewModel: NewCharacterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_character)
         name = intent.getStringExtra("Name")
+        viewModel = ViewModelProviders.of(this).get(NewCharacterViewModel::class.java)
 
         // Class spinner
         val classNames = arrayOf(bard, barbarian, cleric, druid, fighter, monk, paladin, ranger, rogue, sorcerer, warlock, wizard)
@@ -102,6 +107,11 @@ class NewCharacterActivity : AppCompatActivity() {
                 wisdom.setText(playerCharacter.wisdom.toString())
                 charisma.setText(playerCharacter.charisma.toString())
                 hp.setText(playerCharacter.maxHP.toString())
+
+                // Add abilities
+                db.abilityDao().getAbilitiesByCharacter(name).forEach {
+                    if (it.type == "feat") abilityAdapter.abilitiesList.add(it)
+                }
             }
         }
 
@@ -175,7 +185,7 @@ class NewCharacterActivity : AppCompatActivity() {
 
     private fun initRecyclerViews() {
         abilityRecyclerView = findViewById(R.id.abilitiesRecyclerView)
-        abilityAdapter = NewAbilityAdapter()
+        abilityAdapter = NewAbilityAdapter(viewModel)
         abilityRecyclerView.adapter = abilityAdapter
         abilityRecyclerView.layoutManager = LinearLayoutManager(this)
 
