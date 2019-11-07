@@ -1,11 +1,38 @@
 package kavorka.dndspelltracker
 
+import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
 // Sub classes
 const val chain = "Chain"
 const val blade = "Blade"
 const val tome = "Tome"
+
+// Pacts
+
+// Invocations (With abilities attached)
+const val invocation = "invocation"
+const val bewitchingWhispers = "Bewitching Whispers (Compulsion)"
+const val dreadfulWord = "Dreadful Word (Confusion)"
+const val minionsOfChaos = "Minions of Chaos (Conjure Elemental)"
+const val mireTheMind = "Mire the mind (Slow)"
+const val sculptorOfFlesh = "Sculptor of Flesh (Polymorph)"
+const val signOfIllOmen = "Sign of Ill Omen (Bestow Curse"
+const val thiefOfFiveFates = "Thief of Five Fates"
+
+// Get Invocation
+fun getInvocation(invocationName: String) : Ability {
+    return when(invocationName) {
+        bewitchingWhispers -> Ability("", bewitchingWhispers, 1, type=invocation)
+        dreadfulWord -> Ability("", dreadfulWord, 1, type=invocation)
+        minionsOfChaos -> Ability("", minionsOfChaos, 1, type=invocation)
+        mireTheMind -> Ability("", mireTheMind, 1, type=invocation)
+        sculptorOfFlesh -> Ability("", sculptorOfFlesh, 1, type=invocation)
+        signOfIllOmen -> Ability("", signOfIllOmen, 1, type=invocation)
+        thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type=invocation)
+        else ->  Ability("", bewitchingWhispers, 1, type=invocation)
+    }
+}
 
 class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
@@ -38,5 +65,25 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         } else if (level >= 17) {
             lvl5SpellMax = 4
         }
+    }
+
+    private fun availableInvocations(level: Int=20) : List<Ability>{
+        val available = mutableListOf<Ability>()
+
+        available.add(getInvocation(thiefOfFiveFates))
+        if (level >= 5) {
+            available.add(getInvocation(mireTheMind))
+            available.add(getInvocation(signOfIllOmen))
+        }
+        if (level >= 7) {
+            available.add(getInvocation(bewitchingWhispers))
+            available.add(getInvocation(dreadfulWord))
+            available.add(getInvocation(sculptorOfFlesh))
+        }
+        if (level >= 9) {
+            available.add(getInvocation(minionsOfChaos))
+        }
+
+        return available
     }
 }

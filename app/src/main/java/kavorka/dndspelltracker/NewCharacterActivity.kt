@@ -110,7 +110,10 @@ class NewCharacterActivity : AppCompatActivity() {
 
                 // Add abilities
                 db.abilityDao().getAbilitiesByCharacter(name).forEach {
-                    if (it.type == "feat") abilityAdapter.abilitiesList.add(it)
+                    if (it.type == feat) abilityAdapter.abilitiesList.add(it)
+                    if (playerCharacter.characterClass == warlock) {
+                        if (it.type == invocation) abilityAdapter.abilitiesList.add(it)
+                    }
                 }
             }
         }

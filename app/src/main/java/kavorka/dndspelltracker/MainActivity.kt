@@ -32,17 +32,18 @@ const val warlock = "Warlock"
 const val wizard = "Wizard"
 
 // Feats (that have abilities attached)
+const val feat = "Feat"
 const val lucky = "Lucky"
 const val magicInitiate = "Magic Initiate"
 const val martialAdept = "Martial Adept"
 
 // Get feat
-fun getFeat(feat: String): Ability {
-    return when(feat) {
-        lucky -> Ability("", lucky, 3, type="feat")
-        magicInitiate -> Ability("", magicInitiate, 1, type="feat")
-        martialAdept -> Ability("", martialAdept, 1, type="feat")
-        else -> Ability("", lucky, 3, type="feat")
+fun getFeat(featName: String): Ability {
+    return when(featName) {
+        lucky -> Ability("", lucky, 3, type=feat)
+        magicInitiate -> Ability("", magicInitiate, 1, type=feat)
+        martialAdept -> Ability("", martialAdept, 1, type=feat)
+        else -> Ability("", lucky, 3, type=feat)
     }
 }
 
