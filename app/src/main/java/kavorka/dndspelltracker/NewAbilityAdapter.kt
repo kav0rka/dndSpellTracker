@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class NewAbilityAdapter(val viewModel: NewCharacterViewModel) : RecyclerView.Ada
         val deleteAbilityButton = itemView.findViewById<ImageButton>(R.id.deleteImageButton)
 
         fun updateView(index: Int) {
-            var abilities = mutableListOf<String>()
+            val abilities = mutableListOf<String>()
             abilities.addAll(feats)
             if (viewModel.characterClass == warlock) abilities.addAll(availableInvocations(viewModel.level))
             val featSpinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, abilities)
@@ -47,8 +48,15 @@ class NewAbilityAdapter(val viewModel: NewCharacterViewModel) : RecyclerView.Ada
                 }
                 featSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                        var ability: Ability = getFeat(featSpinner.selectedItem.toString())
-                        abilitiesList[index] = ability
+                        val newAbilityName = featSpinner.selectedItem.toString()
+                        if (newAbilityName in feats) {
+                            val ability: Ability = getFeat(newAbilityName)
+                            abilitiesList[index] = ability
+                        } else if (newAbilityName in availableInvocations()) {
+                            val ability: Ability = getInvocation(newAbilityName)
+                            abilitiesList[index] = ability
+                        }
+
 //                        abilitiesList[index].name = featSpinner.selectedItem.toString()
                     }
                     override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}

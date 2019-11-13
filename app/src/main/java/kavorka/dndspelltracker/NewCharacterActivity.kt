@@ -103,6 +103,7 @@ class NewCharacterActivity : AppCompatActivity() {
                 subClassAdapter.notifyDataSetChanged()
                 val subClassPos = allSubClasses.indexOf(playerCharacter.characterSubClass)
                 subClassSpinner.setSelection(subClassPos)
+                viewModel.characterClass = playerCharacter.characterClass
 
                 // Set Stats
                 strength.setText(playerCharacter.strength.toString())
@@ -115,6 +116,8 @@ class NewCharacterActivity : AppCompatActivity() {
 
                 // Add abilities
                 db.abilityDao().getAbilitiesByCharacter(name).forEach {
+                    Log.d("", playerCharacter.characterClass)
+                    Log.d("", it.type)
                     if (it.type == feat) abilityAdapter.abilitiesList.add(it)
                     if (playerCharacter.characterClass == warlock) {
                         if (it.type == invocation) abilityAdapter.abilitiesList.add(it)
