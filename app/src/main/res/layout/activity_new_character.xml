@@ -15,6 +15,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,16 +34,16 @@
         android:id="@+id/dexTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
         android:text="Dex:"
-        app:layout_constraintStart_toStartOf="@+id/strTextView"
-        app:layout_constraintTop_toBottomOf="@+id/strTextView" />
+        app:layout_constraintStart_toEndOf="@+id/intEditText"
+        app:layout_constraintTop_toTopOf="@+id/intTextView" />
 
     <EditText
         android:id="@+id/strEditText"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="number"
         android:text="10"
@@ -55,12 +56,13 @@
         android:id="@+id/dexEditText"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="number"
         android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/dexTextView"
-        app:layout_constraintStart_toStartOf="@+id/strEditText"
+        app:layout_constraintStart_toEndOf="@+id/dexTextView"
         app:layout_constraintTop_toTopOf="@+id/dexTextView" />
 
     <TextView
@@ -69,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Con:"
-        app:layout_constraintStart_toStartOf="@+id/dexTextView"
-        app:layout_constraintTop_toBottomOf="@+id/dexTextView" />
+        app:layout_constraintStart_toStartOf="@+id/strTextView"
+        app:layout_constraintTop_toBottomOf="@+id/strTextView" />
 
     <EditText
         android:id="@+id/conEditText"
@@ -81,17 +83,17 @@
         android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/conTextView"
-        app:layout_constraintStart_toStartOf="@+id/dexEditText"
+        app:layout_constraintStart_toStartOf="@+id/strEditText"
         app:layout_constraintTop_toTopOf="@+id/conTextView" />
 
     <TextView
         android:id="@+id/intTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="24dp"
         android:text="Int:"
         app:layout_constraintBottom_toBottomOf="@+id/strTextView"
-        app:layout_constraintEnd_toStartOf="@+id/intEditText"
+        app:layout_constraintStart_toEndOf="@+id/strEditText"
         app:layout_constraintTop_toTopOf="@+id/strTextView"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -99,13 +101,13 @@
         android:id="@+id/intEditText"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="number"
         android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/intTextView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/intTextView"
         app:layout_constraintTop_toTopOf="@+id/intTextView"
         app:layout_constraintVertical_bias="0.523" />
 
@@ -134,10 +136,11 @@
         android:id="@+id/chaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="Cha:"
-        app:layout_constraintStart_toStartOf="@+id/wisTextView"
-        app:layout_constraintTop_toBottomOf="@+id/wisTextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/wisTextView"
+        app:layout_constraintStart_toStartOf="@+id/dexTextView"
+        app:layout_constraintTop_toTopOf="@+id/wisTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/chaEditText"
@@ -148,8 +151,9 @@
         android:text="10"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/chaTextView"
-        app:layout_constraintStart_toStartOf="@+id/wisEditText"
-        app:layout_constraintTop_toTopOf="@+id/chaTextView" />
+        app:layout_constraintStart_toStartOf="@+id/dexEditText"
+        app:layout_constraintTop_toTopOf="@+id/chaTextView"
+        app:layout_constraintVertical_bias="0.38" />
 
     <Spinner
         android:id="@+id/classSpinner"
@@ -230,6 +234,7 @@
         android:ems="10"
         android:inputType="number"
         android:text="10"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/maxHPTextView"
         app:layout_constraintStart_toStartOf="@+id/levelSpinner"
         app:layout_constraintTop_toTopOf="@+id/maxHPTextView" />
@@ -241,7 +246,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="ABILITIES: (Feats, Invocations, etc)"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/conTextView"
         app:layout_constraintTop_toBottomOf="@+id/conTextView" />
