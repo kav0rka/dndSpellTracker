@@ -57,6 +57,8 @@ class CharacterScreenActivity : AppCompatActivity() {
             hpEditText.setText(viewModel.hitPoints.toString())
             hpMaxText.text = " / " + (playerCharacter.maxHP.toString())
 
+            viewModel.characterClass = playerCharacter.characterClass
+
             hpEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s != null) {
@@ -89,11 +91,15 @@ class CharacterScreenActivity : AppCompatActivity() {
         btnShortRest.setOnClickListener {
             viewModel.doShortRest()
             thread {
+                viewModel.spells.forEach {
+                    db.spellsDao().insert(it)
+                }
                 viewModel.abilities.forEach {
                     db.abilityDao().insert(it)
                 }
             }
             abilitiesAdapter.notifyDataSetChanged()
+            spellsAdapter.notifyDataSetChanged()
         }
 //
         btnLongRest.setOnClickListener {

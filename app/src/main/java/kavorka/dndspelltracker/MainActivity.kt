@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db = Room.databaseBuilder(applicationContext, CharacterDatabase::class.java, "CharacterDatabase").build()
-        //test
+
         // Clear the data!
 //        (applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).clearApplicationUserData()
 
