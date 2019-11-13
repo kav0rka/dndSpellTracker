@@ -24,13 +24,17 @@ class NewAbilityAdapter(val viewModel: NewCharacterViewModel) : RecyclerView.Ada
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val featSpinner = itemView.findViewById<Spinner>(R.id.newAbilitySpinner)
-        val feats = arrayOf(lucky, magicInitiate, martialAdept)
-        val featSpinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, feats)
+        var feats = arrayOf(lucky, magicInitiate, martialAdept)
 
         val addAbilityButton = itemView.findViewById<ImageButton>(R.id.addImageButton)
         val deleteAbilityButton = itemView.findViewById<ImageButton>(R.id.deleteImageButton)
 
         fun updateView(index: Int) {
+            var abilities = mutableListOf<String>()
+            abilities.addAll(feats)
+            if (viewModel.characterClass == warlock) abilities.addAll(availableInvocations(viewModel.level))
+            val featSpinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, abilities)
+
             featSpinner.visibility = View.GONE
             addAbilityButton.visibility = View.GONE
             deleteAbilityButton.visibility = View.GONE

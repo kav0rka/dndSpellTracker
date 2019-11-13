@@ -49,6 +49,9 @@ class NewCharacterActivity : AppCompatActivity() {
                 subClassAdapter.clear()
                 subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), levelSpinner.selectedItemPosition +1))
                 subClassAdapter.notifyDataSetChanged()
+
+                viewModel.characterClass = classSpinner.selectedItem.toString()
+                abilityAdapter.notifyDataSetChanged()
             }
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
@@ -65,6 +68,8 @@ class NewCharacterActivity : AppCompatActivity() {
                 subClassAdapter.clear()
                 subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level=pos +1))
                 subClassAdapter.notifyDataSetChanged()
+                viewModel.level = levelSpinner.selectedItem.toString().toInt()
+                abilityAdapter.notifyDataSetChanged()
             }
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
