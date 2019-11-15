@@ -9,6 +9,7 @@ data class PlayerCharacter(
         val name: String,
         val characterClass: String,
         val characterSubClass: String,
+        val race: String,
         var level: Int,
         var strength: Int,
         var dexterity: Int,

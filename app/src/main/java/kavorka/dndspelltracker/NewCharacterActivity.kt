@@ -56,6 +56,14 @@ class NewCharacterActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
+        // Race spinner
+        val races = arrayOf(dwarf, elf, halfling, human, dragonborn, gnome, halfelf, halforc, tiefling)
+        val raceSpinner = findViewById<Spinner>(R.id.raceSpinner)
+        val raceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, races)
+        raceSpinner.adapter = raceAdapter
+
+        // Update abilities when race is selected
+
         // Level spinner
         val levels = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
         val levelSpinner = findViewById<Spinner>(R.id.levelSpinner)
@@ -92,6 +100,7 @@ class NewCharacterActivity : AppCompatActivity() {
                 val hp = findViewById<EditText>(R.id.maxHPEditText)
 
                 nameField.setText(name)
+                // Set level
                 levelSpinner.setSelection(playerCharacter.level -1)
                 // Set Class
                 val classPos = classArrayAdapter.getPosition(playerCharacter.characterClass)
@@ -104,6 +113,10 @@ class NewCharacterActivity : AppCompatActivity() {
                 val subClassPos = allSubClasses.indexOf(playerCharacter.characterSubClass)
                 subClassSpinner.setSelection(subClassPos)
                 viewModel.characterClass = playerCharacter.characterClass
+                // Set race
+                val racePos = raceAdapter.getPosition(playerCharacter.race)
+                raceSpinner.setSelection(racePos)
+                viewModel.race = playerCharacter.race
 
                 // Set Stats
                 strength.setText(playerCharacter.strength.toString())
@@ -150,8 +163,11 @@ class NewCharacterActivity : AppCompatActivity() {
                 playerSubClass = subClassSpinner.selectedItem.toString()
             }
 
+            // Race
+            val race = raceSpinner.selectedItem.toString()
+
             // Make the new character
-            val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, level, strength, dexterity,
+            val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, race, level, strength, dexterity,
                     constitution, intelligence, wisdom, charisma, maxHP, maxHP)
 
             // Save
@@ -223,7 +239,7 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubClasses(characterClass: String, level: Int): List<String> {
-        val playerCharacter = PlayerCharacter("", characterClass, "", level,10, 10, 10, 10, 10, 10)
+        val playerCharacter = PlayerCharacter("", characterClass, "", "", level,10, 10, 10, 10, 10, 10)
         return getClass(characterClass, playerCharacter).subClasses
     }
 

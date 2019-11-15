@@ -182,7 +182,7 @@
         android:layout_marginTop="8dp"
         android:text="Level:"
         app:layout_constraintStart_toStartOf="@+id/classTextView"
-        app:layout_constraintTop_toBottomOf="@+id/subClassTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/raceTextView" />
 
     <Spinner
         android:id="@+id/levelSpinner"
@@ -272,4 +272,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Spinner
+        android:id="@+id/raceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/raceTextView"
+        app:layout_constraintStart_toStartOf="@+id/classSpinner"
+        app:layout_constraintTop_toTopOf="@+id/raceTextView" />
+
+    <TextView
+        android:id="@+id/raceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Race"
+        app:layout_constraintStart_toStartOf="@+id/subClassTextView"
+        app:layout_constraintTop_toBottomOf="@+id/subClassTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import kavorka.dndspelltracker.data.Ability
 
-
 // Classes
 const val bard = "Bard"
 const val barbarian = "Barbarian"
@@ -30,6 +29,17 @@ const val rogue = "Rogue"
 const val sorcerer = "Sorcerer"
 const val warlock = "Warlock"
 const val wizard = "Wizard"
+
+// Races
+const val dwarf = "Dwarf"
+const val elf = "Elf"
+const val halfling = "Halfling"
+const val human = "Human"
+const val dragonborn = "Dragonborn"
+const val gnome = "Gnome"
+const val halfelf = "Half-Elf"
+const val halforc = "Half-Orc"
+const val tiefling = "Tiefling"
 
 // Feats (that have abilities attached)
 const val feat = "Feat"
