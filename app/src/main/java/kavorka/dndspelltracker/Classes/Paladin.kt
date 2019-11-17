@@ -1,7 +1,8 @@
-package kavorka.dndspelltracker
+package kavorka.dndspelltracker.Classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.getAbilityMod
 
 // Sub classes
 const val devotion = "Devotion"

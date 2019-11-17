@@ -1,4 +1,4 @@
-package kavorka.dndspelltracker
+package kavorka.dndspelltracker.Classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
@@ -23,14 +23,14 @@ const val thiefOfFiveFates = "Thief of Five Fates"
 // Get Invocation
 fun getInvocation(invocationName: String) : Ability {
     return when(invocationName) {
-        bewitchingWhispers -> Ability("", bewitchingWhispers, 1, type=invocation)
-        dreadfulWord -> Ability("", dreadfulWord, 1, type=invocation)
-        minionsOfChaos -> Ability("", minionsOfChaos, 1, type=invocation)
-        mireTheMind -> Ability("", mireTheMind, 1, type=invocation)
-        sculptorOfFlesh -> Ability("", sculptorOfFlesh, 1, type=invocation)
-        signOfIllOmen -> Ability("", signOfIllOmen, 1, type=invocation)
-        thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type=invocation)
-        else ->  Ability("", bewitchingWhispers, 1, type=invocation)
+        bewitchingWhispers -> Ability("", bewitchingWhispers, 1, type= invocation)
+        dreadfulWord -> Ability("", dreadfulWord, 1, type= invocation)
+        minionsOfChaos -> Ability("", minionsOfChaos, 1, type= invocation)
+        mireTheMind -> Ability("", mireTheMind, 1, type= invocation)
+        sculptorOfFlesh -> Ability("", sculptorOfFlesh, 1, type= invocation)
+        signOfIllOmen -> Ability("", signOfIllOmen, 1, type= invocation)
+        thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type= invocation)
+        else ->  Ability("", bewitchingWhispers, 1, type= invocation)
     }
 }
 

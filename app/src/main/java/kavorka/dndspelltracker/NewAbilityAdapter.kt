@@ -1,11 +1,12 @@
 package kavorka.dndspelltracker
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import kavorka.dndspelltracker.Classes.availableInvocations
+import kavorka.dndspelltracker.Classes.getInvocation
 import kavorka.dndspelltracker.data.Ability
 
 class NewAbilityAdapter(val viewModel: NewCharacterViewModel) : RecyclerView.Adapter<NewAbilityAdapter.ViewHolder>(){

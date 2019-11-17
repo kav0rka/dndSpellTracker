@@ -1,4 +1,4 @@
-package kavorka.dndspelltracker
+package kavorka.dndspelltracker.Classes
 
 import kavorka.dndspelltracker.data.PlayerCharacter
 

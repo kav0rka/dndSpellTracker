@@ -7,11 +7,11 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kavorka.dndspelltracker.Classes.*
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
 import kavorka.dndspelltracker.races.*
@@ -274,7 +274,7 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubClasses(characterClass: String, level: Int): List<String> {
-        val playerCharacter = PlayerCharacter()
+        val playerCharacter = PlayerCharacter(level=level)
         return getClass(characterClass, playerCharacter).subClasses
     }
 
@@ -293,7 +293,7 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubRaces(raceName: String): List<String> {
-        val playerCharacter = PlayerCharacter()
+        val playerCharacter = PlayerCharacter(race=raceName)
         return getRace(raceName, playerCharacter).subRaces
     }
 
