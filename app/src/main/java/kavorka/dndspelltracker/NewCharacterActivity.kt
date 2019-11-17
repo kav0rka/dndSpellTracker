@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
+import kavorka.dndspelltracker.races.*
 import kotlinx.android.synthetic.main.activity_new_character.*
 import kotlin.concurrent.thread
 
@@ -43,7 +44,7 @@ class NewCharacterActivity : AppCompatActivity() {
         val subClassAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subClassNames)
         subClassSpinner.adapter = subClassAdapter
 
-        // Update sub class when class is selected
+        // Update sub classes when class is selected
         classSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 subClassAdapter.clear()
@@ -62,7 +63,26 @@ class NewCharacterActivity : AppCompatActivity() {
         val raceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, races)
         raceSpinner.adapter = raceAdapter
 
-        // Update abilities when race is selected
+        // Sub race spinner
+        val subRaceNames = getSubRaces(raceSpinner.selectedItem.toString())
+        val subRaceSpinner = findViewById<Spinner>(R.id.subRaceSpinner)
+        val subRaceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subRaceNames)
+        subRaceSpinner.adapter = subRaceAdapter
+
+        // Update sub races when race is selected
+        raceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                subRaceAdapter.clear()
+                subRaceAdapter.addAll(getSubRaces(raceSpinner.selectedItem.toString()))
+                subRaceAdapter.notifyDataSetChanged()
+
+                viewModel.race = raceSpinner.selectedItem.toString()
+                abilityAdapter.notifyDataSetChanged()
+            }
+            override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
+        }
+
+
 
         // Level spinner
         val levels = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
@@ -117,6 +137,13 @@ class NewCharacterActivity : AppCompatActivity() {
                 val racePos = raceAdapter.getPosition(playerCharacter.race)
                 raceSpinner.setSelection(racePos)
                 viewModel.race = playerCharacter.race
+                // Set sub race
+                subRaceAdapter.clear()
+                val allSubRaces = getSubRaces(playerCharacter.race)
+                subRaceAdapter.addAll(allSubRaces)
+                subRaceAdapter.notifyDataSetChanged()
+                val subRacePos = allSubRaces.indexOf(playerCharacter.subRace)
+                subRaceSpinner.setSelection(subRacePos)
 
                 // Set Stats
                 strength.setText(playerCharacter.strength.toString())
@@ -165,9 +192,13 @@ class NewCharacterActivity : AppCompatActivity() {
 
             // Race
             val race = raceSpinner.selectedItem.toString()
+            var subRace = ""
+            if (subRaceSpinner.selectedItem != null) {
+                subRace = subRaceSpinner.selectedItem.toString()
+            }
 
             // Make the new character
-            val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, race, level, strength, dexterity,
+            val newCharacter = PlayerCharacter(name, playerClass, playerSubClass, race, subRace, level, strength, dexterity,
                     constitution, intelligence, wisdom, charisma, maxHP, maxHP)
 
             // Save
@@ -199,6 +230,10 @@ class NewCharacterActivity : AppCompatActivity() {
                     db.abilityDao().insert(it)
                 }
                 abilityAdapter.abilitiesList.forEach {
+                    it.character = name
+                    db.abilityDao().insert(it)
+                }
+                getRace(race, newCharacter).raceAbilities.forEach {
                     it.character = name
                     db.abilityDao().insert(it)
                 }
@@ -239,8 +274,27 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubClasses(characterClass: String, level: Int): List<String> {
-        val playerCharacter = PlayerCharacter("", characterClass, "", "", level,10, 10, 10, 10, 10, 10)
+        val playerCharacter = PlayerCharacter()
         return getClass(characterClass, playerCharacter).subClasses
+    }
+
+    private fun getRace(raceName: String, playerCharacter: PlayerCharacter) : Race {
+        return when (raceName) {
+            dragonborn -> Dragonborn(playerCharacter)
+            dwarf -> Dwarf(playerCharacter)
+            elf -> Elf(playerCharacter)
+            gnome -> Gnome(playerCharacter)
+            halfelf -> HalfElf(playerCharacter)
+            halfling -> Halfling(playerCharacter)
+            halforc -> HalfOrc(playerCharacter)
+            human -> Human(playerCharacter)
+            else -> Tiefling(playerCharacter)
+        }
+    }
+
+    private fun getSubRaces(raceName: String): List<String> {
+        val playerCharacter = PlayerCharacter()
+        return getRace(raceName, playerCharacter).subRaces
     }
 
 }

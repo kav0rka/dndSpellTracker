@@ -31,6 +31,7 @@ const val warlock = "Warlock"
 const val wizard = "Wizard"
 
 // Races
+const val race = "Race"
 const val dwarf = "Dwarf"
 const val elf = "Elf"
 const val halfling = "Halfling"

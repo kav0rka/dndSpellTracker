@@ -182,7 +182,7 @@
         android:layout_marginTop="8dp"
         android:text="Level:"
         app:layout_constraintStart_toStartOf="@+id/classTextView"
-        app:layout_constraintTop_toBottomOf="@+id/raceTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/subRaceTextView" />
 
     <Spinner
         android:id="@+id/levelSpinner"
@@ -206,6 +206,7 @@
         android:id="@+id/subClassTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Sub Class:"
         app:layout_constraintStart_toStartOf="@+id/classTextView"
@@ -215,6 +216,7 @@
         android:id="@+id/subClassSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/subClassTextView"
         app:layout_constraintStart_toStartOf="@+id/classSpinner"
         app:layout_constraintTop_toTopOf="@+id/subClassTextView" />
@@ -287,6 +289,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Race"
-        app:layout_constraintStart_toStartOf="@+id/subClassTextView"
+        app:layout_constraintStart_toStartOf="@+id/classTextView"
         app:layout_constraintTop_toBottomOf="@+id/subClassTextView" />
+
+    <TextView
+        android:id="@+id/subRaceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Sub Race"
+        app:layout_constraintStart_toStartOf="@+id/classTextView"
+        app:layout_constraintTop_toBottomOf="@+id/raceTextView" />
+
+    <Spinner
+        android:id="@+id/subRaceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/subRaceTextView"
+        app:layout_constraintStart_toStartOf="@+id/classSpinner"
+        app:layout_constraintTop_toTopOf="@+id/subRaceTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
