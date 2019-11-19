@@ -1,14 +1,12 @@
-package kavorka.dndspelltracker.Classes
+package kavorka.dndspelltracker.classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
 // Sub classes
-const val chain = "Chain"
-const val blade = "Blade"
-const val tome = "Tome"
-
-// Pacts
+const val archFey = "Arch Fey"
+const val fiend = "Fiend"
+const val greatOldOne = "Great Old One"
 
 // Invocations (With abilities attached)
 const val invocation = "invocation"
@@ -62,10 +60,31 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         val level = playerCharacter.level
         setSpells(level)
 
-        if (level >= 3) {
-            subClasses.add(chain)
-            subClasses.add(blade)
-            subClasses.add(tome)
+        subClasses.add(archFey)
+        subClasses.add(fiend)
+        subClasses.add(greatOldOne)
+
+        val sub = playerCharacter.characterSubClass
+
+        if (sub == archFey) {
+            abilities.add(Ability("", "Fey Presence", 1, resetOnShort = true))
+            if (level >= 6) {
+                abilities.add(Ability("", "Misty Escape", 1, resetOnShort = true))
+            }
+            if (level >= 14) {
+                abilities.add(Ability("", "Dark Delirium",1, resetOnShort = true))
+            }
+        } else if (sub == fiend) {
+            if (level >= 6) {
+                abilities.add(Ability("", "Dark One's Own Luck", 1, resetOnShort = true))
+            }
+            if (level >= 14) {
+                abilities.add(Ability("", "Hurl Through Hell", 1))
+            }
+        } else if (sub == greatOldOne) {
+            if (level >= 6) {
+                abilities.add(Ability("","Entropic Ward", 1, resetOnShort = true))
+            }
         }
     }
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kavorka.dndspelltracker.Classes.*
+import kavorka.dndspelltracker.classes.*
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
 import kavorka.dndspelltracker.races.*
