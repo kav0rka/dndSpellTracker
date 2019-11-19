@@ -7,28 +7,40 @@ import kavorka.dndspelltracker.data.PlayerCharacter
 const val archFey = "Arch Fey"
 const val fiend = "Fiend"
 const val greatOldOne = "Great Old One"
+const val celestial = "Celestial"
+const val hexblade = "Hexblade"
 
 // Invocations (With abilities attached)
 const val invocation = "invocation"
-const val bewitchingWhispers = "Bewitching Whispers (Compulsion)"
-const val dreadfulWord = "Dreadful Word (Confusion)"
-const val minionsOfChaos = "Minions of Chaos (Conjure Elemental)"
-const val mireTheMind = "Mire the mind (Slow)"
-const val sculptorOfFlesh = "Sculptor of Flesh (Polymorph)"
-const val signOfIllOmen = "Sign of Ill Omen (Bestow Curse)"
+const val bewitchingWhispers = "Bewitching Whispers"
+const val dreadfulWord = "Dreadful Word"
+const val minionsOfChaos = "Minions of Chaos"
+const val mireTheMind = "Mire the mind"
+const val sculptorOfFlesh = "Sculptor of Flesh"
+const val signOfIllOmen = "Sign of Ill Omen"
 const val thiefOfFiveFates = "Thief of Five Fates"
+const val cloakOfFlies = "Cloak of Flies"
+const val ghostlyGaze = "Ghostly Gaze"
+const val giftOfTheDepths = "Gift of the Depths"
+const val tombOfLevistus = "Tomb of Levistus"
+const val trickstersEscape = "Trickster's Escape"
 
 // Get Invocation
 fun getInvocation(invocationName: String) : Ability {
     return when(invocationName) {
-        bewitchingWhispers -> Ability("", bewitchingWhispers, 1, type= invocation)
-        dreadfulWord -> Ability("", dreadfulWord, 1, type= invocation)
-        minionsOfChaos -> Ability("", minionsOfChaos, 1, type= invocation)
-        mireTheMind -> Ability("", mireTheMind, 1, type= invocation)
-        sculptorOfFlesh -> Ability("", sculptorOfFlesh, 1, type= invocation)
-        signOfIllOmen -> Ability("", signOfIllOmen, 1, type= invocation)
+        bewitchingWhispers -> Ability("", "Compulsion", 1, type= invocation)
+        cloakOfFlies -> Ability("", cloakOfFlies, 1, resetOnShort = true)
+        dreadfulWord -> Ability("", "Confusion", 1, type= invocation)
+        ghostlyGaze -> Ability("", ghostlyGaze, 1, resetOnShort = true)
+        giftOfTheDepths -> Ability("", "Water Breathing", 1)
+        minionsOfChaos -> Ability("", "Conjure Elemental", 1, type= invocation)
+        mireTheMind -> Ability("", "Slow", 1, type= invocation)
+        sculptorOfFlesh -> Ability("", "Polymorph", 1, type= invocation)
+        signOfIllOmen -> Ability("", "Bestow Curse", 1, type= invocation)
         thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type= invocation)
-        else ->  Ability("", bewitchingWhispers, 1, type= invocation)
+        tombOfLevistus -> Ability("", tombOfLevistus, 1, resetOnShort = true)
+        trickstersEscape -> Ability("", "Freedom of Movement", 1)
+        else ->  Ability("", "Compulsion", 1, type= invocation)
     }
 }
 
@@ -38,13 +50,18 @@ fun availableInvocations(level: Int=20) : List<String>{
 
     available.add(thiefOfFiveFates)
     if (level >= 5) {
+        available.add(cloakOfFlies)
+        available.add(giftOfTheDepths)
         available.add(mireTheMind)
         available.add(signOfIllOmen)
+        available.add(tombOfLevistus)
     }
     if (level >= 7) {
         available.add(bewitchingWhispers)
         available.add(dreadfulWord)
+        available.add(ghostlyGaze)
         available.add(sculptorOfFlesh)
+        available.add(trickstersEscape)
     }
     if (level >= 9) {
         available.add(minionsOfChaos)
@@ -63,6 +80,8 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         subClasses.add(archFey)
         subClasses.add(fiend)
         subClasses.add(greatOldOne)
+        subClasses.add(celestial)
+        subClasses.add(hexblade)
 
         val sub = playerCharacter.characterSubClass
 
@@ -84,6 +103,16 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         } else if (sub == greatOldOne) {
             if (level >= 6) {
                 abilities.add(Ability("","Entropic Ward", 1, resetOnShort = true))
+            }
+        } else if (sub == celestial) {
+            abilities.add(Ability("", "Healing Light", level+1))
+            if (level >= 14) {
+                abilities.add(Ability("", "Searing Vengeance", 1))
+            }
+        } else if (sub == hexblade) {
+            abilities.add(Ability("", "Hexblade's Curse", 1, resetOnShort = true))
+            if (level >= 6) {
+                abilities.add(Ability("", "Accursed Specter", 1))
             }
         }
     }
