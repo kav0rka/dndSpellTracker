@@ -1,6 +1,5 @@
 package kavorka.dndspelltracker
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.Spells
@@ -47,15 +46,15 @@ class CharacterViewModel: ViewModel() {
         abilities.forEach {
             if (it.resetOnShort) it.used = 0
         }
-        if (characterClass == warlock) {
-            resetSpells()
+        spells.forEach {
+            if (it.resetOnShort) it.used = 0
         }
     }
 
     fun doLongRest() {
         abilities.forEach {
             it.used -= it.resetOnLong
-            if (it.used <0) it.used = 0
+            if (it.used < 0) it.used = 0
         }
         resetSpells()
     }
@@ -65,5 +64,6 @@ class CharacterViewModel: ViewModel() {
             it.used = 0
         }
     }
+
 
 }

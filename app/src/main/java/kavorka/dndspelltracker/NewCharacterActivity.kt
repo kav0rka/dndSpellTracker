@@ -216,7 +216,12 @@ class NewCharacterActivity : AppCompatActivity() {
                 val characterClass = getClass(playerClass, newCharacter)
                 characterClass.getSpellSlots().forEachIndexed { index, i ->
                     if (i > 0) {
-                        val spell = Spells(name, index + 1, i, 0)
+                        val level = index +1
+                        var resetOnShort = false
+                        if (playerClass == warlock) {
+                            if (level <= 5) resetOnShort = true
+                        }
+                        val spell = Spells(name, level, i, 0, resetOnShort=resetOnShort)
                         db.spellsDao().insert(spell)
                     } else {
                         db.spellsDao().deleteSpellsByCharacterAndLevel(name, index + 1)

@@ -31,21 +31,21 @@ fun getInvocation(invocationName: String) : Ability {
         bewitchingWhispers -> Ability("", "Compulsion", 1, type= invocation)
         cloakOfFlies -> Ability("", cloakOfFlies, 1, resetOnShort = true)
         dreadfulWord -> Ability("", "Confusion", 1, type= invocation)
-        ghostlyGaze -> Ability("", ghostlyGaze, 1, resetOnShort = true)
-        giftOfTheDepths -> Ability("", "Water Breathing", 1)
+        ghostlyGaze -> Ability("", ghostlyGaze, 1, resetOnShort = true, type= invocation)
+        giftOfTheDepths -> Ability("", "Water Breathing", 1, type= invocation)
         minionsOfChaos -> Ability("", "Conjure Elemental", 1, type= invocation)
         mireTheMind -> Ability("", "Slow", 1, type= invocation)
         sculptorOfFlesh -> Ability("", "Polymorph", 1, type= invocation)
         signOfIllOmen -> Ability("", "Bestow Curse", 1, type= invocation)
         thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type= invocation)
-        tombOfLevistus -> Ability("", tombOfLevistus, 1, resetOnShort = true)
-        trickstersEscape -> Ability("", "Freedom of Movement", 1)
+        tombOfLevistus -> Ability("", tombOfLevistus, 1, resetOnShort = true, type= invocation)
+        trickstersEscape -> Ability("", "Freedom of Movement", 1, type= invocation)
         else ->  Ability("", "Compulsion", 1, type= invocation)
     }
 }
 
 
-fun availableInvocations(level: Int=20) : List<String>{
+fun availableInvocations(level: Int=20) : List<String> {
     val available = mutableListOf<String>()
 
     available.add(thiefOfFiveFates)
@@ -84,6 +84,10 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         subClasses.add(hexblade)
 
         val sub = playerCharacter.characterSubClass
+
+        if (level == 20) {
+            abilities.add(Ability("", "Eldritch Master", 1))
+        }
 
         if (sub == archFey) {
             abilities.add(Ability("", "Fey Presence", 1, resetOnShort = true))
@@ -135,6 +139,20 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         } else if (level >= 17) {
             lvl5SpellMax = 4
         }
+
+        if (level >= 11) {
+            lvl6SpellMax = 1
+        }
+        if (level >= 13) {
+            lvl7SpellMax = 1
+        }
+        if (level >= 15) {
+            lvl8SpellMax = 1
+        }
+        if (level >= 17) {
+            lvl9SpellMax = 1
+        }
+
     }
 
 
