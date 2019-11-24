@@ -16,6 +16,7 @@ const val war = "War"
 class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level = playerCharacter.level
         setSpellsFull(level)
 

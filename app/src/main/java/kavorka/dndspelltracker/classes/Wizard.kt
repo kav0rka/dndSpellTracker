@@ -16,6 +16,7 @@ const val transmutation = "Transmutation"
 class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 6
         val level = playerCharacter.level
         setSpellsFull(level)
 

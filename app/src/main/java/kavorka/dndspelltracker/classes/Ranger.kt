@@ -9,6 +9,7 @@ const val beastMaster = "Beast Master"
 class Ranger(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 10
         val level = playerCharacter.level
 
         setSpellsSemi(level)

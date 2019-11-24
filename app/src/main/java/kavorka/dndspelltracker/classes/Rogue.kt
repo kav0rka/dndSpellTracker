@@ -11,6 +11,7 @@ const val arcaneTrickster = "Arcane Trickster"
 class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level  = playerCharacter.level
         setSpells(level)
         if (level >=3) {

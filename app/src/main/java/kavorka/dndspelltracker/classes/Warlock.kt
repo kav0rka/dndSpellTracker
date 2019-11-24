@@ -74,6 +74,7 @@ fun availableInvocations(level: Int=20) : List<String> {
 class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level = playerCharacter.level
         setSpells(level)
 

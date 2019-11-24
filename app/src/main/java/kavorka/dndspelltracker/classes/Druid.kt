@@ -10,6 +10,7 @@ const val moon = "Moon"
 class Druid(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level = playerCharacter.level
         setSpellsFull(level)
 

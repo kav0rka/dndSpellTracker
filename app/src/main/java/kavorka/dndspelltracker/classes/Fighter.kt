@@ -11,6 +11,7 @@ const val eldritchKnight = "Eldritch Knight"
 class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 10
         val level = playerCharacter.level
         setSpells(level)
 

@@ -82,25 +82,37 @@ class NewCharacterActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
-
-
         // Level spinner
         val levels = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
         val levelSpinner = findViewById<Spinner>(R.id.levelSpinner)
         val levelArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, levels)
         levelSpinner.adapter = levelArrayAdapter
 
+        // Automatically set HP is auto HP is selected
+        fun autoUpdateHP(level: Int) {
+            val auto = findViewById<Switch>(R.id.autoHPSwitch)
+            if (auto.isChecked) {
+                val con = findViewById<EditText>(R.id.conEditText).text.toString().toInt()
+                val playerCharacter = PlayerCharacter(level = level, constitution = con)
+                val characterClass = classSpinner.selectedItem.toString()
+                findViewById<EditText>(R.id.maxHPEditText).setText(getClass(characterClass, playerCharacter).getMaxHP().toString())
+            }
+        }
+
         // Update sub class when level is selected
         levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                val level = pos +1
                 subClassAdapter.clear()
-                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level=pos +1))
+                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level=level))
                 subClassAdapter.notifyDataSetChanged()
-                viewModel.level = levelSpinner.selectedItem.toString().toInt()
+                viewModel.level = level
                 abilityAdapter.notifyDataSetChanged()
+                autoUpdateHP(level)
             }
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
+
 
         initRecyclerViews()
 
@@ -118,6 +130,11 @@ class NewCharacterActivity : AppCompatActivity() {
                 val wisdom = findViewById<EditText>(R.id.wisEditText)
                 val charisma = findViewById<EditText>(R.id.chaEditText)
                 val hp = findViewById<EditText>(R.id.maxHPEditText)
+//                val autoHP = getClass(playerCharacter.characterClass, playerCharacter).getMaxHP() == playerCharacter.maxHP
+
+                // Set auto HP before level so it knows if it should auto change it or not
+//                val autoHPSwitch = findViewById<Switch>(R.id.autoHPSwitch)
+//                autoHPSwitch.setChecked(false)
 
                 nameField.setText(name)
                 // Set level

@@ -2,6 +2,7 @@ package kavorka.dndspelltracker.classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.getAbilityMod
 
 open class CharacterClass(val playerCharacter: PlayerCharacter) {
 
@@ -17,6 +18,8 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
 
     var abilities = mutableListOf<Ability>()
     var subClasses = mutableListOf<String>()
+
+    var hitDie = 12
 
     init {
         val hitDiceMax = playerCharacter.level
@@ -106,6 +109,14 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
         slots[7] = lvl8SpellMax
         slots[8] = lvl9SpellMax
         return slots
+    }
+
+    fun getMaxHP(): Int {
+        val conMod = getAbilityMod(playerCharacter.constitution)
+        val initial = hitDie + conMod
+        val level = playerCharacter.level
+        if (level == 1) return initial
+        return initial + ((level - 1) * ((hitDie/2) + 1 + conMod))
     }
 
 }

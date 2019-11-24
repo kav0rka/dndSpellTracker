@@ -10,6 +10,7 @@ const val wildMagic = "Wild Magic"
 class Sorcerer(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 6
         val level =playerCharacter.level
         setSpellsFull(level)
 

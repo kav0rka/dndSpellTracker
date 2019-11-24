@@ -11,6 +11,7 @@ const val fourElements = "Four Elements"
 class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level = playerCharacter.level
 
         // Ki points

@@ -12,6 +12,7 @@ const val vengeance = "Vengeance"
 class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 10
         val level = playerCharacter.level
         setSpellsSemi(level)
 

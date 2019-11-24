@@ -9,6 +9,7 @@ const val valor = "Valor"
 class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 8
         val level = playerCharacter.level
         setSpellsFull(level)
 

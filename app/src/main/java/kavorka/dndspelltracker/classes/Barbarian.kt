@@ -9,6 +9,8 @@ const val totemWarrior = "Totem Warrior"
 class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
+        hitDie = 12
+
         val level = playerCharacter.level
         if (level >= 3) {
             subClasses.add(berserker)
