@@ -3,6 +3,8 @@ package kavorka.dndspelltracker
 import android.content.Intent
 import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -15,6 +17,7 @@ import kavorka.dndspelltracker.classes.*
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
 import kavorka.dndspelltracker.races.*
+import kotlinx.android.synthetic.main.activity_character_screen.*
 import kotlinx.android.synthetic.main.activity_new_character.*
 import kotlin.concurrent.thread
 
@@ -31,16 +34,26 @@ class NewCharacterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_character)
         name = intent.getStringExtra("Name")
         viewModel = ViewModelProviders.of(this).get(NewCharacterViewModel::class.java)
+        autoHPSwitch.isChecked = false
+
+        // Automatically set HP is auto HP is selected
+        fun autoUpdateHP(level: Int) {
+            if (autoHPSwitch.isChecked) {
+                val con = conEditText.text.toString().toInt()
+                val playerCharacter = PlayerCharacter(level = level, constitution = con)
+                val characterClass = classSpinner.selectedItem.toString()
+                maxHPEditText.setText(getClass(characterClass, playerCharacter).getMaxHP().toString())
+            }
+        }
+
 
         // Class spinner
         val classNames = arrayOf(bard, barbarian, cleric, druid, fighter, monk, paladin, ranger, rogue, sorcerer, warlock, wizard)
-        val classSpinner = findViewById<Spinner>(R.id.classSpinner)
         val classArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, classNames)
         classSpinner.adapter = classArrayAdapter
 
         // Sub class spinner
         val subClassNames = getSubClasses(classSpinner.selectedItem.toString(), 1)
-        val subClassSpinner = findViewById<Spinner>(R.id.subClassSpinner)
         val subClassAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subClassNames)
         subClassSpinner.adapter = subClassAdapter
 
@@ -48,24 +61,24 @@ class NewCharacterActivity : AppCompatActivity() {
         classSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 subClassAdapter.clear()
-                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), levelSpinner.selectedItemPosition +1))
+                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), levelSpinner.selectedItemPosition + 1))
                 subClassAdapter.notifyDataSetChanged()
 
                 viewModel.characterClass = classSpinner.selectedItem.toString()
                 abilityAdapter.notifyDataSetChanged()
+                autoUpdateHP(levelSpinner.selectedItem.toString().toInt())
             }
+
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
         // Race spinner
         val races = arrayOf(dwarf, elf, halfling, human, dragonborn, gnome, halfelf, halforc, tiefling)
-        val raceSpinner = findViewById<Spinner>(R.id.raceSpinner)
         val raceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, races)
         raceSpinner.adapter = raceAdapter
 
         // Sub race spinner
         val subRaceNames = getSubRaces(raceSpinner.selectedItem.toString())
-        val subRaceSpinner = findViewById<Spinner>(R.id.subRaceSpinner)
         val subRaceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, subRaceNames)
         subRaceSpinner.adapter = subRaceAdapter
 
@@ -79,40 +92,52 @@ class NewCharacterActivity : AppCompatActivity() {
                 viewModel.race = raceSpinner.selectedItem.toString()
                 abilityAdapter.notifyDataSetChanged()
             }
+
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
         // Level spinner
         val levels = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-        val levelSpinner = findViewById<Spinner>(R.id.levelSpinner)
         val levelArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, levels)
         levelSpinner.adapter = levelArrayAdapter
 
-        // Automatically set HP is auto HP is selected
-        fun autoUpdateHP(level: Int) {
-            val auto = findViewById<Switch>(R.id.autoHPSwitch)
-            if (auto.isChecked) {
-                val con = findViewById<EditText>(R.id.conEditText).text.toString().toInt()
-                val playerCharacter = PlayerCharacter(level = level, constitution = con)
-                val characterClass = classSpinner.selectedItem.toString()
-                findViewById<EditText>(R.id.maxHPEditText).setText(getClass(characterClass, playerCharacter).getMaxHP().toString())
-            }
-        }
-
-        // Update sub class when level is selected
+        // Update sub class  and HP when level is selected
         levelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                val level = pos +1
+                val level = pos + 1
                 subClassAdapter.clear()
-                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level=level))
+                subClassAdapter.addAll(getSubClasses(classSpinner.selectedItem.toString(), level = level))
                 subClassAdapter.notifyDataSetChanged()
                 viewModel.level = level
                 abilityAdapter.notifyDataSetChanged()
                 autoUpdateHP(level)
             }
+
             override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
         }
 
+        // Update HP when "Auto HP" is switched on
+        autoHPSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) autoUpdateHP(levelSpinner.selectedItem.toString().toInt())
+        }
+        
+        // Update HP when constitution is changed
+        conEditText.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (s.toString() != "") {
+                    autoUpdateHP(levelSpinner.selectedItem.toString().toInt())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
 
         initRecyclerViews()
 
@@ -122,29 +147,15 @@ class NewCharacterActivity : AppCompatActivity() {
                 val playerCharacter = db.charactersDao().getCharacterByName(name)
                 oldName = name
 
-                val nameField = findViewById<EditText>(R.id.nameEditText)
-                val strength = findViewById<EditText>(R.id.strEditText)
-                val dexterity = findViewById<EditText>(R.id.dexEditText)
-                val constitution = findViewById<EditText>(R.id.conEditText)
-                val intelligence = findViewById<EditText>(R.id.intEditText)
-                val wisdom = findViewById<EditText>(R.id.wisEditText)
-                val charisma = findViewById<EditText>(R.id.chaEditText)
-                val hp = findViewById<EditText>(R.id.maxHPEditText)
-//                val autoHP = getClass(playerCharacter.characterClass, playerCharacter).getMaxHP() == playerCharacter.maxHP
-
-                // Set auto HP before level so it knows if it should auto change it or not
-//                val autoHPSwitch = findViewById<Switch>(R.id.autoHPSwitch)
-//                autoHPSwitch.setChecked(false)
-
-                nameField.setText(name)
+                nameEditText.setText(name)
                 // Set level
-                levelSpinner.setSelection(playerCharacter.level -1)
+                levelSpinner.setSelection(playerCharacter.level - 1)
                 // Set Class
                 val classPos = classArrayAdapter.getPosition(playerCharacter.characterClass)
                 classSpinner.setSelection(classPos)
                 // Set sub class
                 subClassAdapter.clear()
-                val allSubClasses = getSubClasses(playerCharacter.characterClass, level=playerCharacter.level)
+                val allSubClasses = getSubClasses(playerCharacter.characterClass, level = playerCharacter.level)
                 subClassAdapter.addAll(allSubClasses)
                 subClassAdapter.notifyDataSetChanged()
                 val subClassPos = allSubClasses.indexOf(playerCharacter.characterSubClass)
@@ -163,18 +174,16 @@ class NewCharacterActivity : AppCompatActivity() {
                 subRaceSpinner.setSelection(subRacePos)
 
                 // Set Stats
-                strength.setText(playerCharacter.strength.toString())
-                dexterity.setText(playerCharacter.dexterity.toString())
-                constitution.setText(playerCharacter.constitution.toString())
-                intelligence.setText(playerCharacter.intelligence.toString())
-                wisdom.setText(playerCharacter.wisdom.toString())
-                charisma.setText(playerCharacter.charisma.toString())
-                hp.setText(playerCharacter.maxHP.toString())
+                strEditText.setText(playerCharacter.strength.toString())
+                dexEditText.setText(playerCharacter.dexterity.toString())
+                conEditText.setText(playerCharacter.constitution.toString())
+                intEditText.setText(playerCharacter.intelligence.toString())
+                wisEditText.setText(playerCharacter.wisdom.toString())
+                chaEditText.setText(playerCharacter.charisma.toString())
+                maxHPEditText.setText(playerCharacter.maxHP.toString())
 
                 // Add abilities
                 db.abilityDao().getAbilitiesByCharacter(name).forEach {
-                    Log.d("", playerCharacter.characterClass)
-                    Log.d("", it.type)
                     if (it.type == feat) abilityAdapter.abilitiesList.add(it)
                     if (playerCharacter.characterClass == warlock) {
                         if (it.type == invocation) abilityAdapter.abilitiesList.add(it)
@@ -185,20 +194,19 @@ class NewCharacterActivity : AppCompatActivity() {
 
 
         // Save button
-        val saveButton = findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener {
             // Name
-            val name = findViewById<EditText>(R.id.nameEditText).text.toString()
+            val name = nameEditText.text.toString()
 
             // Stats
-            val strength = findViewById<EditText>(R.id.strEditText).text.toString().toInt()
-            val dexterity = findViewById<EditText>(R.id.dexEditText).text.toString().toInt()
-            val constitution = findViewById<EditText>(R.id.conEditText).text.toString().toInt()
-            val intelligence = findViewById<EditText>(R.id.intEditText).text.toString().toInt()
-            val wisdom = findViewById<EditText>(R.id.wisEditText).text.toString().toInt()
-            val charisma = findViewById<EditText>(R.id.chaEditText).text.toString().toInt()
+            val strength = strEditText.text.toString().toInt()
+            val dexterity = dexEditText.text.toString().toInt()
+            val constitution = conEditText.text.toString().toInt()
+            val intelligence = intEditText.text.toString().toInt()
+            val wisdom = wisEditText.text.toString().toInt()
+            val charisma = chaEditText.text.toString().toInt()
             val level = levelSpinner.selectedItem.toString().toInt()
-            val maxHP = findViewById<EditText>(R.id.maxHPEditText).text.toString().toInt()
+            val maxHP = maxHPEditText.text.toString().toInt()
 
             // Class
             val playerClass = classSpinner.selectedItem.toString()
@@ -233,12 +241,12 @@ class NewCharacterActivity : AppCompatActivity() {
                 val characterClass = getClass(playerClass, newCharacter)
                 characterClass.getSpellSlots().forEachIndexed { index, i ->
                     if (i > 0) {
-                        val level = index +1
+                        val level = index + 1
                         var resetOnShort = false
                         if (playerClass == warlock) {
                             if (level <= 5) resetOnShort = true
                         }
-                        val spell = Spells(name, level, i, 0, resetOnShort=resetOnShort)
+                        val spell = Spells(name, level, i, 0, resetOnShort = resetOnShort)
                         db.spellsDao().insert(spell)
                     } else {
                         db.spellsDao().deleteSpellsByCharacterAndLevel(name, index + 1)
@@ -296,11 +304,11 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubClasses(characterClass: String, level: Int): List<String> {
-        val playerCharacter = PlayerCharacter(level=level)
+        val playerCharacter = PlayerCharacter(level = level)
         return getClass(characterClass, playerCharacter).subClasses
     }
 
-    private fun getRace(raceName: String, playerCharacter: PlayerCharacter) : Race {
+    private fun getRace(raceName: String, playerCharacter: PlayerCharacter): Race {
         return when (raceName) {
             dragonborn -> Dragonborn(playerCharacter)
             dwarf -> Dwarf(playerCharacter)
@@ -315,7 +323,7 @@ class NewCharacterActivity : AppCompatActivity() {
     }
 
     private fun getSubRaces(raceName: String): List<String> {
-        val playerCharacter = PlayerCharacter(race=raceName)
+        val playerCharacter = PlayerCharacter(race = raceName)
         return getRace(raceName, playerCharacter).subRaces
     }
 
