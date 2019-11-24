@@ -59,7 +59,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:maxHeight="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonShortRest"
+        app:layout_constraintBottom_toTopOf="@+id/shortRestButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/abilitiesTextView">
@@ -74,7 +74,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/buttonShortRest"
+        android:id="@+id/shortRestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -85,7 +85,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonLongRest"
+        android:id="@+id/longRestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toTopOf="@+id/hpTextView" />
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -126,8 +126,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="HP:"
-        app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+        app:layout_constraintStart_toStartOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
     <TextView
         android:id="@+id/hpMaxTextView"

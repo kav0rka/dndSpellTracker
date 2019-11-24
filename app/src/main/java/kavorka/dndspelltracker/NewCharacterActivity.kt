@@ -5,7 +5,6 @@ import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import kavorka.dndspelltracker.classes.*
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.data.Spells
 import kavorka.dndspelltracker.races.*
-import kotlinx.android.synthetic.main.activity_character_screen.*
 import kotlinx.android.synthetic.main.activity_new_character.*
 import kotlin.concurrent.thread
 

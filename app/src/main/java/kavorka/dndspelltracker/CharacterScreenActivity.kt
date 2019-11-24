@@ -4,9 +4,6 @@ import android.graphics.drawable.ClipDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kotlin.concurrent.thread
+import kotlinx.android.synthetic.main.activity_character_screen.*
 
 class CharacterScreenActivity : AppCompatActivity() {
     lateinit var viewModel: CharacterViewModel
@@ -34,11 +32,7 @@ class CharacterScreenActivity : AppCompatActivity() {
         name = intent.getStringExtra("Name")
         initRecyclerViews()
 
-        val nameTextView = findViewById<TextView>(R.id.textViewName)
         nameTextView.text = name
-
-        val hpEditText = findViewById<EditText>(R.id.hpEditText)
-        val hpMaxText = findViewById<TextView>(R.id.hpMaxTextView)
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
@@ -55,7 +49,7 @@ class CharacterScreenActivity : AppCompatActivity() {
 
             viewModel.hitPoints = playerCharacter.hp
             hpEditText.setText(viewModel.hitPoints.toString())
-            hpMaxText.text = " / " + (playerCharacter.maxHP.toString())
+            hpMaxTextView.text = " / " + (playerCharacter.maxHP.toString())
 
             viewModel.characterClass = playerCharacter.characterClass
 
@@ -72,23 +66,13 @@ class CharacterScreenActivity : AppCompatActivity() {
                         }
                     }
                 }
-
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
         }
 
-
-        val btnShortRest = findViewById<Button>(R.id.buttonShortRest)
-        val btnLongRest = findViewById<Button>(R.id.buttonLongRest)
-
-
-        btnShortRest.setOnClickListener {
+        shortRestButton.setOnClickListener {
             viewModel.doShortRest()
             thread {
                 viewModel.spells.forEach {
@@ -102,7 +86,7 @@ class CharacterScreenActivity : AppCompatActivity() {
             spellsAdapter.notifyDataSetChanged()
         }
 //
-        btnLongRest.setOnClickListener {
+        longRestButton.setOnClickListener {
             viewModel.doLongRest()
             viewModel.hitPoints = playerCharacter.maxHP
             thread {

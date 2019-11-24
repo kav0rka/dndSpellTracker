@@ -40,7 +40,7 @@ class AbilitiesAdapter(val characterViewModel: CharacterViewModel): RecyclerView
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name = itemView.findViewById<TextView>(R.id.textViewName)
+        var name = itemView.findViewById<TextView>(R.id.nameTextView)
         var used = itemView.findViewById<TextView>(R.id.textViewUsed)
         var itemUp = itemView.findViewById<ImageButton>(R.id.buttonDown)
         var itemDown = itemView.findViewById<ImageButton>(R.id.buttonUp)
