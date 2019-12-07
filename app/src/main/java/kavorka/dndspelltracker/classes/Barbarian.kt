@@ -1,5 +1,6 @@
 package kavorka.dndspelltracker.classes
 
+import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 
 // Sub classes
@@ -15,6 +16,17 @@ class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharact
         hitDie = 12
 
         val level = playerCharacter.level
+
+        var rageAmount = 2
+        when (level) {
+            in 3..5 -> rageAmount = 3
+            in 6..11 -> rageAmount = 4
+            in 12..16 -> rageAmount = 5
+            in 17..19 -> rageAmount = 6
+            20 -> rageAmount = 0
+        }
+        if (rageAmount > 0) abilities.add(Ability("", "Rage", rageAmount))
+
         if (level >= 3) {
             subClasses.add(berserker)
             subClasses.add(totemWarrior)
