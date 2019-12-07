@@ -34,5 +34,16 @@ class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharact
             subClasses.add(stormHerald)
             subClasses.add(zealot)
         }
+        val subClass = playerCharacter.characterSubClass
+        if (subClass == ancestralGuardian) {
+            if (level >= 10) {
+                abilities.add(Ability("", "Consult the spirits", 1, resetOnShort = true))
+            }
+        } else if (subClass == zealot) {
+            if (level >= 10) {
+                abilities.add(Ability("", "Zealous Presence", 1))
+            }
+
+        }
     }
 }
