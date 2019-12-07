@@ -12,6 +12,8 @@ const val nature = "Nature"
 const val tempest = "Tempest"
 const val trickery = "Trickery"
 const val war = "War"
+const val forge = "Forge"
+const val grave = "Grave"
 
 class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
@@ -27,6 +29,8 @@ class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
         subClasses.add(tempest)
         subClasses.add(trickery)
         subClasses.add(war)
+        subClasses.add(forge)
+        subClasses.add(grave)
 
         // Channel Divinity
         if (level >= 2) {
@@ -43,21 +47,23 @@ class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
 
         // Sub class abilities
         val sub = playerCharacter.characterSubClass
+        val wisdomMod = getAbilityMod(playerCharacter.wisdom)
 
         if (sub == knowledge) {
             if (level >= 17) {
                 abilities.add(Ability("", "Visions of the Past", 1, resetOnShort = true))
             }
         } else if (sub == light) {
-            val wardingMax = getAbilityMod(playerCharacter.wisdom)
-            abilities.add(Ability("", "Warding Flame", wardingMax))
+            abilities.add(Ability("", "Warding Flame", wisdomMod))
         } else if (sub == tempest) {
-            val wrathMax = getAbilityMod(playerCharacter.wisdom)
-            abilities.add(Ability("", "Wrath of the Storm", wrathMax))
+            abilities.add(Ability("", "Wrath of the Storm", wisdomMod))
         } else if (sub == war) {
-            val priestMax = getAbilityMod(playerCharacter.wisdom)
-            abilities.add(Ability("", "War Priest", priestMax))
+            abilities.add(Ability("", "War Priest", wisdomMod))
+        } else if (sub == forge) {
+            abilities.add(Ability("", "Blessing of the Forge", 1))
+        } else if (sub == grave) {
+            abilities.add(Ability("", "Eyes of the Grave", wisdomMod))
+            if (level >= 6) abilities.add(Ability("", "Sentinel at Death's Door", wisdomMod))
         }
-
     }
 }
