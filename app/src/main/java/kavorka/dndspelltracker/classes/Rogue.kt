@@ -22,7 +22,7 @@ class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
         val sub = playerCharacter.characterSubClass
         if (sub == arcaneTrickster) {
             if (level >= 17) {
-                abilities.add(Ability("", "Spell Thief", 1))
+                abilities.add(Ability("Spell Thief"))
             }
         }
     }

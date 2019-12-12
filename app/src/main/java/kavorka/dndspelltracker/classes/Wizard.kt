@@ -21,7 +21,7 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
         setSpellsFull(level)
 
         //Arcane recovery
-        abilities.add(Ability("", "Arcane Recovery", 1))
+        abilities.add(Ability( "Arcane Recovery"))
 
         if (level >= 2) {
             subClasses.add(abjuration)
@@ -39,23 +39,23 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
 
             if (sub == divination) {
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
-                abilities.add(Ability("", "Portent", portentMax))
+                abilities.add(Ability( "Portent", max=portentMax))
 
                 if (level >= 10) {
-                    abilities.add(Ability("", "Third Eye", 1, resetOnShort = true))
+                    abilities.add(Ability( "Third Eye", resetOnShort = true))
                 }
             } else if (sub == enchantment) {
-                abilities.add(Ability("", "Hypnotic Gaze", 1))
+                abilities.add(Ability( "Hypnotic Gaze"))
                 if (level >= 6) {
-                    abilities.add(Ability("", "Instinctive Charm", 1))
+                    abilities.add(Ability( "Instinctive Charm"))
                 }
             } else if (sub == illusion) {
                 if (level >= 10) {
-                    abilities.add(Ability("", "Illusory Self", 1, resetOnShort = true))
+                    abilities.add(Ability( "Illusory Self", resetOnShort = true))
                 }
             } else if (sub == transmutation) {
                 if (level >= 10) {
-                    abilities.add(Ability("", "Shape Changer", 1, resetOnShort = true))
+                    abilities.add(Ability( "Shape Changer", resetOnShort = true))
                 }
             }
         }

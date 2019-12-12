@@ -15,11 +15,11 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         val level = playerCharacter.level
         setSpells(level)
 
-        abilities.add(Ability("", "Second Wind", 1, resetOnShort = true))
+        abilities.add(Ability("Second Wind", resetOnShort = true))
         if (level >= 2) {
             var surgeMax = 1
             if (level >= 17) surgeMax++
-            abilities.add(Ability("", "Action Surge", surgeMax, resetOnShort = true))
+            abilities.add(Ability("Action Surge", max=surgeMax, resetOnShort = true))
         }
 
         if (level >= 3) {
@@ -32,7 +32,7 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
             var max = 1
             if (level >= 13) max++
             if (level >= 17) max++
-            abilities.add(Ability("", "Indomitable", max))
+            abilities.add(Ability("Indomitable", max=max))
         }
 
         // Sub class abilities
@@ -42,7 +42,7 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
             var combatMax = 4
             if (level >= 7) combatMax++
             if (level >= 15) combatMax++
-            abilities.add(Ability("", "Combat Superiority", combatMax, resetOnShort = true))
+            abilities.add(Ability("Combat Superiority", max=combatMax, resetOnShort = true))
         }
     }
 

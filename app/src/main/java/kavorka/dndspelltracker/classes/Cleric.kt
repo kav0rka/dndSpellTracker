@@ -37,12 +37,12 @@ class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             var channelMax = 1
             if (level >= 6) channelMax++
             if (level >= 18) channelMax++
-            abilities.add(Ability("", "Channel Divinity", channelMax, resetOnShort = true))
+            abilities.add(Ability("Channel Divinity", max=channelMax, resetOnShort = true))
         }
 
         // Divine Intervention
         if (level >= 10) {
-            abilities.add(Ability("", "Divine Intervention", 1))
+            abilities.add(Ability("Divine Intervention"))
         }
 
         // Sub class abilities
@@ -51,19 +51,19 @@ class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
 
         if (sub == knowledge) {
             if (level >= 17) {
-                abilities.add(Ability("", "Visions of the Past", 1, resetOnShort = true))
+                abilities.add(Ability("Visions of the Past", resetOnShort = true))
             }
         } else if (sub == light) {
-            abilities.add(Ability("", "Warding Flame", wisdomMod))
+            abilities.add(Ability("Warding Flame", max=wisdomMod))
         } else if (sub == tempest) {
-            abilities.add(Ability("", "Wrath of the Storm", wisdomMod))
+            abilities.add(Ability("Wrath of the Storm", max=wisdomMod))
         } else if (sub == war) {
-            abilities.add(Ability("", "War Priest", wisdomMod))
+            abilities.add(Ability("War Priest", max=wisdomMod))
         } else if (sub == forge) {
-            abilities.add(Ability("", "Blessing of the Forge", 1))
+            abilities.add(Ability("Blessing of the Forge"))
         } else if (sub == grave) {
-            abilities.add(Ability("", "Eyes of the Grave", wisdomMod))
-            if (level >= 6) abilities.add(Ability("", "Sentinel at Death's Door", wisdomMod))
+            abilities.add(Ability("Eyes of the Grave", max=wisdomMod))
+            if (level >= 6) abilities.add(Ability("Sentinel at Death's Door", max=wisdomMod))
         }
     }
 }

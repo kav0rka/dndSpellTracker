@@ -24,20 +24,20 @@ class Druid(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
             subClasses.add(shepard)
 
             // Wild shape
-            abilities.add(Ability("", "Wild Shape", 2, resetOnShort = true))
+            abilities.add(Ability("Wild Shape", max=2, resetOnShort = true))
 
             // Sub class abilities
             val sub = playerCharacter.characterSubClass
 
             if (sub == land) {
-                abilities.add(Ability("", "Natural Recovery", 1))
+                abilities.add(Ability("Natural Recovery"))
             } else if (sub == dreams) {
                 val wisdomMod = getAbilityMod(playerCharacter.wisdom)
-                if (level >= 2) abilities.add(Ability("", "Balm of the Summer Court", level))
-                if (level >= 6) abilities.add(Ability("", "Hidden Paths", wisdomMod))
-                if (level >= 14) abilities.add(Ability("", "Walker in Dreams", 1))
+                if (level >= 2) abilities.add(Ability("Balm of the Summer Court", max=level))
+                if (level >= 6) abilities.add(Ability("Hidden Paths", max=wisdomMod))
+                if (level >= 14) abilities.add(Ability("Walker in Dreams"))
             } else if (sub == shepard) {
-                if (level >= 14) abilities.add(Ability("", "Faithful Summons", 1))
+                if (level >= 14) abilities.add(Ability("Faithful Summons"))
             }
         }
     }

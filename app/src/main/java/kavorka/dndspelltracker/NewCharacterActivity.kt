@@ -239,12 +239,12 @@ class NewCharacterActivity : AppCompatActivity() {
                 val characterClass = getClass(playerClass, newCharacter)
                 characterClass.getSpellSlots().forEachIndexed { index, i ->
                     if (i > 0) {
-                        val level = index + 1
+                        val charLevel = index + 1
                         var resetOnShort = false
                         if (playerClass == warlock) {
-                            if (level <= 5) resetOnShort = true
+                            if (charLevel <= 5) resetOnShort = true
                         }
-                        val spell = Spells(name, level, i, 0, resetOnShort = resetOnShort)
+                        val spell = Spells(name, charLevel, i, 0, resetOnShort = resetOnShort)
                         db.spellsDao().insert(spell)
                     } else {
                         db.spellsDao().deleteSpellsByCharacterAndLevel(name, index + 1)
@@ -254,14 +254,17 @@ class NewCharacterActivity : AppCompatActivity() {
                 // Insert abilities
                 db.abilityDao().deleteAbilitiesByCharacter(name)
                 characterClass.abilities.forEach {
+                    if (it.max < 1) it.max =1
                     it.character = name
                     db.abilityDao().insert(it)
                 }
                 abilityAdapter.abilitiesList.forEach {
+                    if (it.max < 1) it.max =1
                     it.character = name
                     db.abilityDao().insert(it)
                 }
                 getRace(race, newCharacter).raceAbilities.forEach {
+                    if (it.max < 1) it.max =1
                     it.character = name
                     db.abilityDao().insert(it)
                 }

@@ -5,6 +5,6 @@ import kavorka.dndspelltracker.data.PlayerCharacter
 
 class HalfOrc(playerCharacter: PlayerCharacter) : Race(playerCharacter) {
     init {
-        raceAbilities.add(Ability("", "Relentless Endurance", 1))
+        raceAbilities.add(Ability( "Relentless Endurance"))
     }
 }

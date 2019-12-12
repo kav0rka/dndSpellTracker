@@ -25,7 +25,7 @@ class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharact
             in 17..19 -> rageAmount = 6
             20 -> rageAmount = 0
         }
-        if (rageAmount > 0) abilities.add(Ability("", "Rage", rageAmount))
+        if (rageAmount > 0) abilities.add(Ability("Rage", max=rageAmount))
 
         if (level >= 3) {
             subClasses.add(berserker)
@@ -37,11 +37,11 @@ class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharact
         val subClass = playerCharacter.characterSubClass
         if (subClass == ancestralGuardian) {
             if (level >= 10) {
-                abilities.add(Ability("", "Consult the spirits", 1, resetOnShort = true))
+                abilities.add(Ability("Consult the spirits", resetOnShort = true))
             }
         } else if (subClass == zealot) {
             if (level >= 10) {
-                abilities.add(Ability("", "Zealous Presence", 1))
+                abilities.add(Ability("Zealous Presence"))
             }
 
         }

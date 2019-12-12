@@ -16,7 +16,7 @@ class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
         // Ki points
         if (level >= 2) {
-            abilities.add(Ability("", "Ki", level, resetOnShort = true))
+            abilities.add(Ability("Ki", max=level, resetOnShort = true))
         }
 
         if (level >= 3) {
@@ -27,7 +27,7 @@ class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
             // Sub class abilities
             val sub = playerCharacter.characterSubClass
             if (sub == openHand) {
-                abilities.add(Ability("", "Wholeness of body", 1))
+                abilities.add(Ability("Wholeness of body"))
             }
         }
 

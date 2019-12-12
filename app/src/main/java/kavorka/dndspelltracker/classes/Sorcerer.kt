@@ -18,7 +18,7 @@ class Sorcerer(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacte
         subClasses.add(wildMagic)
 
         if (level >= 2) {
-            abilities.add(Ability("", "Sorcery Points", level))
+            abilities.add(Ability("Sorcery Points", max=level))
         }
     }
 }

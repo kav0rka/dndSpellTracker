@@ -18,8 +18,7 @@ class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
         val level = playerCharacter.level
         setSpellsFull(level)
         var inspirationMax = getAbilityMod(playerCharacter.charisma)
-        if (inspirationMax < 1) inspirationMax = 1
-        abilities.add(Ability("", "Inspiration", inspirationMax, resetOnShort = level >= 5))
+        abilities.add(Ability("Inspiration", max=inspirationMax, resetOnShort = level >= 5))
 
         if (level >= 3) {
             subClasses.add(lore)
@@ -31,13 +30,13 @@ class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
         val subClass = playerCharacter.characterSubClass
         if (subClass == glamour) {
-            if (level >= 3) abilities.add(Ability("", "Enthralling Performance", 1, resetOnShort = true))
-            if (level >= 6) abilities.add(Ability("", "Mantle of Majesty", 1))
-            if (level >=14) abilities.add(Ability("", "Unbreakable Majesty", 1, resetOnShort = true))
+            if (level >= 3) abilities.add(Ability("Enthralling Performance", resetOnShort = true))
+            if (level >= 6) abilities.add(Ability("Mantle of Majesty"))
+            if (level >=14) abilities.add(Ability("Unbreakable Majesty", resetOnShort = true))
         } else if (subClass == whispers) {
-            if (level >= 3) abilities.add(Ability("", "Words of Terror", 1, resetOnShort = true))
-            if (level >= 6) abilities.add(Ability("", "Mantle of Whispers", 1, resetOnShort = true))
-            if (level >= 14) abilities.add(Ability("", "Shadow Lore", 1))
+            if (level >= 3) abilities.add(Ability("Words of Terror", resetOnShort = true))
+            if (level >= 6) abilities.add(Ability("Mantle of Whispers", resetOnShort = true))
+            if (level >= 14) abilities.add(Ability("Shadow Lore"))
         }
     }
 }

@@ -23,7 +23,7 @@ open class CharacterClass(val playerCharacter: PlayerCharacter) {
 
     init {
         val hitDiceMax = playerCharacter.level
-        abilities.add(Ability("", "Hit Dice", hitDiceMax, resetOnLong=hitDiceMax/2))
+        abilities.add(Ability("Hit Dice", max=hitDiceMax, resetOnLong=hitDiceMax/2))
     }
 
     fun setSpellsFull(level: Int) {

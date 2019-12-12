@@ -20,10 +20,10 @@ class Elf(playerCharacter: PlayerCharacter) : Race(playerCharacter) {
         val level = playerCharacter.level
         if (sub == drow) {
             if (level >= 3) {
-                raceAbilities.add(Ability("", "Faerie Fire", 1))
+                raceAbilities.add(Ability( "Faerie Fire"))
             }
             if (level >= 5) {
-                raceAbilities.add(Ability("", "Darkness", 1))
+                raceAbilities.add(Ability("Darkness"))
             }
         }
     }

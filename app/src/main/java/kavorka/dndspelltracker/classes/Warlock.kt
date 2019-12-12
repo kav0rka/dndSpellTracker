@@ -28,19 +28,19 @@ const val trickstersEscape = "Trickster's Escape"
 // Get Invocation
 fun getInvocation(invocationName: String) : Ability {
     return when(invocationName) {
-        bewitchingWhispers -> Ability("", "Compulsion", 1, type= invocation)
-        cloakOfFlies -> Ability("", cloakOfFlies, 1, resetOnShort = true)
-        dreadfulWord -> Ability("", "Confusion", 1, type= invocation)
-        ghostlyGaze -> Ability("", ghostlyGaze, 1, resetOnShort = true, type= invocation)
-        giftOfTheDepths -> Ability("", "Water Breathing", 1, type= invocation)
-        minionsOfChaos -> Ability("", "Conjure Elemental", 1, type= invocation)
-        mireTheMind -> Ability("", "Slow", 1, type= invocation)
-        sculptorOfFlesh -> Ability("", "Polymorph", 1, type= invocation)
-        signOfIllOmen -> Ability("", "Bestow Curse", 1, type= invocation)
-        thiefOfFiveFates -> Ability("", thiefOfFiveFates, 1, type= invocation)
-        tombOfLevistus -> Ability("", tombOfLevistus, 1, resetOnShort = true, type= invocation)
-        trickstersEscape -> Ability("", "Freedom of Movement", 1, type= invocation)
-        else ->  Ability("", "Compulsion", 1, type= invocation)
+        bewitchingWhispers -> Ability("Compulsion", type= invocation)
+        cloakOfFlies -> Ability(cloakOfFlies, resetOnShort = true)
+        dreadfulWord -> Ability( "Confusion", 1, type= invocation)
+        ghostlyGaze -> Ability(ghostlyGaze, resetOnShort = true, type= invocation)
+        giftOfTheDepths -> Ability("Water Breathing", type= invocation)
+        minionsOfChaos -> Ability( "Conjure Elemental", type= invocation)
+        mireTheMind -> Ability( "Slow", type= invocation)
+        sculptorOfFlesh -> Ability( "Polymorph", type= invocation)
+        signOfIllOmen -> Ability( "Bestow Curse", type= invocation)
+        thiefOfFiveFates -> Ability( thiefOfFiveFates, type= invocation)
+        tombOfLevistus -> Ability( tombOfLevistus, resetOnShort = true, type= invocation)
+        trickstersEscape -> Ability( "Freedom of Movement", type= invocation)
+        else ->  Ability( "Compulsion", type= invocation)
     }
 }
 
@@ -87,37 +87,37 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         val sub = playerCharacter.characterSubClass
 
         if (level == 20) {
-            abilities.add(Ability("", "Eldritch Master", 1))
+            abilities.add(Ability("Eldritch Master"))
         }
 
         if (sub == archFey) {
-            abilities.add(Ability("", "Fey Presence", 1, resetOnShort = true))
+            abilities.add(Ability("Fey Presence", resetOnShort = true))
             if (level >= 6) {
-                abilities.add(Ability("", "Misty Escape", 1, resetOnShort = true))
+                abilities.add(Ability("Misty Escape", resetOnShort = true))
             }
             if (level >= 14) {
-                abilities.add(Ability("", "Dark Delirium",1, resetOnShort = true))
+                abilities.add(Ability("Dark Delirium", resetOnShort = true))
             }
         } else if (sub == fiend) {
             if (level >= 6) {
-                abilities.add(Ability("", "Dark One's Own Luck", 1, resetOnShort = true))
+                abilities.add(Ability("Dark One's Own Luck", resetOnShort = true))
             }
             if (level >= 14) {
-                abilities.add(Ability("", "Hurl Through Hell", 1))
+                abilities.add(Ability("Hurl Through Hell"))
             }
         } else if (sub == greatOldOne) {
             if (level >= 6) {
-                abilities.add(Ability("","Entropic Ward", 1, resetOnShort = true))
+                abilities.add(Ability("Entropic Ward", resetOnShort = true))
             }
         } else if (sub == celestial) {
-            abilities.add(Ability("", "Healing Light", level+1))
+            abilities.add(Ability("Healing Light", max=level+1))
             if (level >= 14) {
-                abilities.add(Ability("", "Searing Vengeance", 1))
+                abilities.add(Ability("Searing Vengeance"))
             }
         } else if (sub == hexblade) {
-            abilities.add(Ability("", "Hexblade's Curse", 1, resetOnShort = true))
+            abilities.add(Ability("Hexblade's Curse", resetOnShort = true))
             if (level >= 6) {
-                abilities.add(Ability("", "Accursed Specter", 1))
+                abilities.add(Ability( "Accursed Specter"))
             }
         }
     }
