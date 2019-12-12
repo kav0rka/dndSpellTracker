@@ -2,11 +2,16 @@ package kavorka.dndspelltracker.classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.getAbilityMod
 
 // Sub classes
 const val thief = "Thief"
 const val assassin = "Assassin"
 const val arcaneTrickster = "Arcane Trickster"
+const val inquisitive = "Inquisitive"
+const val mastermind = "Mastermind"
+const val scout = "Scout"
+const val swashbuckler = "Swashbuckler"
 
 class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
@@ -18,11 +23,24 @@ class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
             subClasses.add(thief)
             subClasses.add(assassin)
             subClasses.add(arcaneTrickster)
+            subClasses.add(inquisitive)
+            subClasses.add(mastermind)
+            subClasses.add(scout)
+            subClasses.add(swashbuckler)
         }
         val sub = playerCharacter.characterSubClass
         if (sub == arcaneTrickster) {
             if (level >= 17) {
                 abilities.add(Ability("Spell Thief"))
+            }
+        } else if (sub == inquisitive) {
+            if (level >= 13) {
+                val eyeMax = getAbilityMod(playerCharacter.wisdom)
+                abilities.add(Ability("Unerring Eye", max = eyeMax))
+            }
+        } else if (sub == swashbuckler) {
+            if (level >=17) {
+                abilities.add(Ability("Master Duelist", resetOnShort = true))
             }
         }
     }

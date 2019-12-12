@@ -8,13 +8,15 @@ import kavorka.dndspelltracker.getAbilityMod
 const val devotion = "Devotion"
 const val ancients = "Ancients"
 const val vengeance = "Vengeance"
+const val conquest = "Conquest"
+const val redemption = "Redemption"
 
 class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
     init {
         hitDie = 10
         val level = playerCharacter.level
-        val charMod = getAbilityMod(playerCharacter.charisma);
+        val charMod = getAbilityMod(playerCharacter.charisma)
         setSpellsSemi(level)
 
         abilities.add(Ability("Divine Sense", max=charMod + 1))
@@ -24,6 +26,8 @@ class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
             subClasses.add(devotion)
             subClasses.add(ancients)
             subClasses.add(vengeance)
+            subClasses.add(conquest)
+            subClasses.add(redemption)
 
             abilities.add(Ability("Channel Divinity", resetOnShort = true))
 
@@ -46,6 +50,10 @@ class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
             } else if (sub == vengeance) {
                 if (level >= 20) {
                     abilities.add(Ability("Avenging Angel"))
+                }
+            } else if (sub == conquest) {
+                if (level == 20) {
+                    abilities.add(Ability("Invincible Conqueror"))
                 }
             }
         }

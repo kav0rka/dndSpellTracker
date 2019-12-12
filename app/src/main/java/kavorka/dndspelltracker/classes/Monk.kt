@@ -7,6 +7,8 @@ import kavorka.dndspelltracker.data.PlayerCharacter
 const val openHand = "Open Hand"
 const val shadow = "Shadow"
 const val fourElements = "Four Elements"
+const val kensei = "Kensei"
+const val sunSoul = "Sun Soul"
 
 class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
@@ -23,6 +25,8 @@ class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
             subClasses.add(openHand)
             subClasses.add(shadow)
             subClasses.add(fourElements)
+            subClasses.add(kensei)
+            subClasses.add(sunSoul)
 
             // Sub class abilities
             val sub = playerCharacter.characterSubClass

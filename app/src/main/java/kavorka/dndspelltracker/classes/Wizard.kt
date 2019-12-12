@@ -2,6 +2,7 @@ package kavorka.dndspelltracker.classes
 
 import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
+import kavorka.dndspelltracker.getAbilityMod
 
 // Sub classes
 const val abjuration = "Abjuration"
@@ -12,6 +13,7 @@ const val evocation = "Evocation"
 const val illusion = "Illusion"
 const val necromancy = "Necromancy"
 const val transmutation = "Transmutation"
+const val warMagic = "War Magic"
 
 class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
 
@@ -32,6 +34,7 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(illusion)
             subClasses.add(necromancy)
             subClasses.add(transmutation)
+            subClasses.add(warMagic)
 
 
             // Sub class abilities
@@ -56,6 +59,11 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             } else if (sub == transmutation) {
                 if (level >= 10) {
                     abilities.add(Ability( "Shape Changer", resetOnShort = true))
+                }
+            } else if (sub == warMagic) {
+                if (level >= 6) {
+                    val surgeMax = getAbilityMod(playerCharacter.intelligence)
+                    abilities.add(Ability("Power Surge", max = surgeMax, resetOnLong = 1))
                 }
             }
         }
