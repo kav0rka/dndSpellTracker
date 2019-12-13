@@ -7,8 +7,6 @@ import androidx.room.PrimaryKey
 data class PlayerCharacter(
         @PrimaryKey
         val name: String="",
-        val characterClass: String="",
-        val characterSubClass: String="",
         val race: String="",
         val subRace: String="",
         var level: Int=1,

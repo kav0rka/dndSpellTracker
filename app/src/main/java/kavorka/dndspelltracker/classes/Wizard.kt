@@ -15,11 +15,10 @@ const val necromancy = "Necromancy"
 const val transmutation = "Transmutation"
 const val warMagic = "War Magic"
 
-class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Wizard(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 6
-        val level = playerCharacter.level
         setSpellsFull(level)
 
         //Arcane recovery
@@ -38,36 +37,33 @@ class Wizard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
 
 
             // Sub class abilities
-            val sub = playerCharacter.characterSubClass
-
-            if (sub == divination) {
+            if (subClass == divination) {
                 val portentMax = if (playerCharacter.level >= 14) 3 else  2
                 abilities.add(Ability( "Portent", max=portentMax))
 
                 if (level >= 10) {
                     abilities.add(Ability( "Third Eye", resetOnShort = true))
                 }
-            } else if (sub == enchantment) {
+            } else if (subClass == enchantment) {
                 abilities.add(Ability( "Hypnotic Gaze"))
                 if (level >= 6) {
                     abilities.add(Ability( "Instinctive Charm"))
                 }
-            } else if (sub == illusion) {
+            } else if (subClass == illusion) {
                 if (level >= 10) {
                     abilities.add(Ability( "Illusory Self", resetOnShort = true))
                 }
-            } else if (sub == transmutation) {
+            } else if (subClass == transmutation) {
                 if (level >= 10) {
                     abilities.add(Ability( "Shape Changer", resetOnShort = true))
                 }
-            } else if (sub == warMagic) {
+            } else if (subClass == warMagic) {
                 if (level >= 6) {
                     val surgeMax = getAbilityMod(playerCharacter.intelligence)
                     abilities.add(Ability("Power Surge", max = surgeMax, resetOnLong = 1))
                 }
             }
         }
-
     }
 
 }

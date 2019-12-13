@@ -10,12 +10,10 @@ const val ancestralGuardian = "Ancestral Guardian"
 const val stormHerald = "Storm Herald"
 const val zealot = "Zealot"
 
-class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Barbarian(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 12
-
-        val level = playerCharacter.level
 
         var rageAmount = 2
         when (level) {
@@ -34,7 +32,7 @@ class Barbarian(playerCharacter: PlayerCharacter) : CharacterClass(playerCharact
             subClasses.add(stormHerald)
             subClasses.add(zealot)
         }
-        val subClass = playerCharacter.characterSubClass
+
         if (subClass == ancestralGuardian) {
             if (level >= 10) {
                 abilities.add(Ability("Consult the spirits", resetOnShort = true))

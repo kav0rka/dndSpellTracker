@@ -10,11 +10,10 @@ const val moon = "Moon"
 const val dreams = "Dreams"
 const val shepard = "Shepard"
 
-class Druid(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Druid(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level = playerCharacter.level
         setSpellsFull(level)
 
         if (level >= 2) {
@@ -27,16 +26,14 @@ class Druid(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
             abilities.add(Ability("Wild Shape", max=2, resetOnShort = true))
 
             // Sub class abilities
-            val sub = playerCharacter.characterSubClass
-
-            if (sub == land) {
+            if (subClass == land) {
                 abilities.add(Ability("Natural Recovery"))
-            } else if (sub == dreams) {
+            } else if (subClass == dreams) {
                 val wisdomMod = getAbilityMod(playerCharacter.wisdom)
                 if (level >= 2) abilities.add(Ability("Balm of the Summer Court", max=level))
                 if (level >= 6) abilities.add(Ability("Hidden Paths", max=wisdomMod))
                 if (level >= 14) abilities.add(Ability("Walker in Dreams"))
-            } else if (sub == shepard) {
+            } else if (subClass == shepard) {
                 if (level >= 14) abilities.add(Ability("Faithful Summons"))
             }
         }

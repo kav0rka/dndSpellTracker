@@ -11,11 +11,10 @@ const val vengeance = "Vengeance"
 const val conquest = "Conquest"
 const val redemption = "Redemption"
 
-class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Paladin(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 10
-        val level = playerCharacter.level
         val charMod = getAbilityMod(playerCharacter.charisma)
         setSpellsSemi(level)
 
@@ -35,29 +34,28 @@ class Paladin(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
                 abilities.add(Ability("Cleansing Touch", max=charMod))
             }
 
-            val sub = playerCharacter.characterSubClass
-            if (sub == devotion) {
+            //Sub class abilities
+            if (subClass == devotion) {
                 if (level >= 20) {
                     abilities.add(Ability("Holy Nimbus"))
                 }
-            } else if (sub == ancients) {
+            } else if (subClass == ancients) {
                 if (level >= 15) {
                     abilities.add(Ability("Undying Sentinel"))
                 }
                 if (level >= 20) {
                     abilities.add(Ability("Elder Champion"))
                 }
-            } else if (sub == vengeance) {
+            } else if (subClass == vengeance) {
                 if (level >= 20) {
                     abilities.add(Ability("Avenging Angel"))
                 }
-            } else if (sub == conquest) {
+            } else if (subClass == conquest) {
                 if (level == 20) {
                     abilities.add(Ability("Invincible Conqueror"))
                 }
             }
         }
-
 
     }
 }

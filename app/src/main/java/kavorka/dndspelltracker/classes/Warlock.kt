@@ -71,11 +71,10 @@ fun availableInvocations(level: Int=20) : List<String> {
 }
 
 
-class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Warlock(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level = playerCharacter.level
         setSpells(level)
 
         subClasses.add(archFey)
@@ -84,13 +83,14 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         subClasses.add(celestial)
         subClasses.add(hexblade)
 
-        val sub = playerCharacter.characterSubClass
+
 
         if (level == 20) {
             abilities.add(Ability("Eldritch Master"))
         }
 
-        if (sub == archFey) {
+        // Sub class abilities
+        if (subClass == archFey) {
             abilities.add(Ability("Fey Presence", resetOnShort = true))
             if (level >= 6) {
                 abilities.add(Ability("Misty Escape", resetOnShort = true))
@@ -98,23 +98,23 @@ class Warlock(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
             if (level >= 14) {
                 abilities.add(Ability("Dark Delirium", resetOnShort = true))
             }
-        } else if (sub == fiend) {
+        } else if (subClass == fiend) {
             if (level >= 6) {
                 abilities.add(Ability("Dark One's Own Luck", resetOnShort = true))
             }
             if (level >= 14) {
                 abilities.add(Ability("Hurl Through Hell"))
             }
-        } else if (sub == greatOldOne) {
+        } else if (subClass == greatOldOne) {
             if (level >= 6) {
                 abilities.add(Ability("Entropic Ward", resetOnShort = true))
             }
-        } else if (sub == celestial) {
+        } else if (subClass == celestial) {
             abilities.add(Ability("Healing Light", max=level+1))
             if (level >= 14) {
                 abilities.add(Ability("Searing Vengeance"))
             }
-        } else if (sub == hexblade) {
+        } else if (subClass == hexblade) {
             abilities.add(Ability("Hexblade's Curse", resetOnShort = true))
             if (level >= 6) {
                 abilities.add(Ability( "Accursed Specter"))

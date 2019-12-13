@@ -11,13 +11,12 @@ const val glamour = "Glamour"
 const val swords = "Swords"
 const val whispers = "Whispers"
 
-class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Bard(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level = playerCharacter.level
         setSpellsFull(level)
-        var inspirationMax = getAbilityMod(playerCharacter.charisma)
+        val inspirationMax = getAbilityMod(playerCharacter.charisma)
         abilities.add(Ability("Inspiration", max=inspirationMax, resetOnShort = level >= 5))
 
         if (level >= 3) {
@@ -28,7 +27,6 @@ class Bard(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
             subClasses.add(whispers)
         }
 
-        val subClass = playerCharacter.characterSubClass
         if (subClass == glamour) {
             if (level >= 3) abilities.add(Ability("Enthralling Performance", resetOnShort = true))
             if (level >= 6) abilities.add(Ability("Mantle of Majesty"))

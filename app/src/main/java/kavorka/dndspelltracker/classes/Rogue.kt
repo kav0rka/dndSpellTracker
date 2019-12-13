@@ -13,12 +13,12 @@ const val mastermind = "Mastermind"
 const val scout = "Scout"
 const val swashbuckler = "Swashbuckler"
 
-class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Rogue(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level  = playerCharacter.level
         setSpells(level)
+
         if (level >=3) {
             subClasses.add(thief)
             subClasses.add(assassin)
@@ -28,17 +28,18 @@ class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
             subClasses.add(scout)
             subClasses.add(swashbuckler)
         }
-        val sub = playerCharacter.characterSubClass
-        if (sub == arcaneTrickster) {
+
+        // Sub Class
+        if (subClass == arcaneTrickster) {
             if (level >= 17) {
                 abilities.add(Ability("Spell Thief"))
             }
-        } else if (sub == inquisitive) {
+        } else if (subClass == inquisitive) {
             if (level >= 13) {
                 val eyeMax = getAbilityMod(playerCharacter.wisdom)
                 abilities.add(Ability("Unerring Eye", max = eyeMax))
             }
-        } else if (sub == swashbuckler) {
+        } else if (subClass == swashbuckler) {
             if (level >=17) {
                 abilities.add(Ability("Master Duelist", resetOnShort = true))
             }
@@ -47,7 +48,7 @@ class Rogue(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) 
 
 
     private fun setSpells(level: Int) {
-        if (playerCharacter.characterSubClass == arcaneTrickster) {
+        if (subClass == arcaneTrickster) {
             if (level >= 3) lvl1SpellMax = 2
             if (level >= 4) lvl1SpellMax++
             if (level >= 7) {

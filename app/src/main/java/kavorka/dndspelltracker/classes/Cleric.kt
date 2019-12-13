@@ -15,11 +15,10 @@ const val war = "War"
 const val forge = "Forge"
 const val grave = "Grave"
 
-class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Cleric(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level = playerCharacter.level
         setSpellsFull(level)
 
         subClasses.add(knowledge)
@@ -46,22 +45,21 @@ class Cleric(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
         }
 
         // Sub class abilities
-        val sub = playerCharacter.characterSubClass
         val wisdomMod = getAbilityMod(playerCharacter.wisdom)
 
-        if (sub == knowledge) {
+        if (subClass == knowledge) {
             if (level >= 17) {
                 abilities.add(Ability("Visions of the Past", resetOnShort = true))
             }
-        } else if (sub == light) {
+        } else if (subClass == light) {
             abilities.add(Ability("Warding Flame", max=wisdomMod))
-        } else if (sub == tempest) {
+        } else if (subClass == tempest) {
             abilities.add(Ability("Wrath of the Storm", max=wisdomMod))
-        } else if (sub == war) {
+        } else if (subClass == war) {
             abilities.add(Ability("War Priest", max=wisdomMod))
-        } else if (sub == forge) {
+        } else if (subClass == forge) {
             abilities.add(Ability("Blessing of the Forge"))
-        } else if (sub == grave) {
+        } else if (subClass == grave) {
             abilities.add(Ability("Eyes of the Grave", max=wisdomMod))
             if (level >= 6) abilities.add(Ability("Sentinel at Death's Door", max=wisdomMod))
         }

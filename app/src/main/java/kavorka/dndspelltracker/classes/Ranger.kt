@@ -11,11 +11,10 @@ const val gloomStalker = "Gloom Stalker"
 const val horizonWalker = "Horizon Walker"
 const val monsterSlayer = "Monster Slayer"
 
-class Ranger(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Ranger(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 10
-        val level = playerCharacter.level
 
         setSpellsSemi(level)
 
@@ -27,15 +26,15 @@ class Ranger(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter)
             subClasses.add(monsterSlayer)
         }
 
-        val sub = playerCharacter.characterSubClass
-        if (sub == horizonWalker) {
+        // Sub Class Abilities
+        if (subClass == horizonWalker) {
             if (level >= 3) {
                 abilities.add(Ability("Detect Portal", resetOnShort = true))
             }
             if (level >= 7) {
                 abilities.add(Ability("Ethereal Step", resetOnShort = true))
             }
-        } else if (sub == monsterSlayer) {
+        } else if (subClass == monsterSlayer) {
             if (level >= 3) {
                 val wisMod = getAbilityMod(playerCharacter.wisdom)
                 abilities.add(Ability("Hunter's Sense", max = wisMod))

@@ -12,11 +12,10 @@ const val arcaneArcher = "Arcane Archer"
 const val cavalier = "Cavalier"
 const val samurai = "Samurai"
 
-class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Fighter(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 10
-        val level = playerCharacter.level
         setSpells(level)
 
         abilities.add(Ability("Second Wind", resetOnShort = true))
@@ -43,18 +42,16 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
         }
 
         // Sub class abilities
-        val sub = playerCharacter.characterSubClass
-
-        if (sub == battleMaster) {
+        if (subClass == battleMaster) {
             var combatMax = 4
             if (level >= 7) combatMax++
             if (level >= 15) combatMax++
             abilities.add(Ability("Combat Superiority", max=combatMax, resetOnShort = true))
-        } else if (sub == arcaneArcher) {
+        } else if (subClass == arcaneArcher) {
             if (level >= 3) {
                 abilities.add(Ability("Arcane Shot", max = 2, resetOnShort = true))
             }
-        } else if (sub == cavalier) {
+        } else if (subClass == cavalier) {
             if (level >= 3) {
                 val markMax = getAbilityMod(playerCharacter.strength)
                 abilities.add(Ability("Unwavering Mark", max=markMax))
@@ -63,7 +60,7 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
                 val maneuverMax = getAbilityMod(playerCharacter.constitution)
                 abilities.add(Ability("Warding Maneuver", max=maneuverMax))
             }
-        } else if (sub == samurai) {
+        } else if (subClass == samurai) {
             if (level >= 3) {
                 abilities.add(Ability("Fighting Spirit", max = 3))
             }
@@ -75,7 +72,7 @@ class Fighter(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter
 
 
     private fun setSpells(level: Int) {
-        if (playerCharacter.characterSubClass == eldritchKnight) {
+        if (subClass == eldritchKnight) {
             if (level >= 3) lvl1SpellMax = 2
             if (level >= 4) lvl1SpellMax++
             if (level >= 7) {

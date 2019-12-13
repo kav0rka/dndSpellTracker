@@ -36,6 +36,7 @@ class CharacterScreenActivity : AppCompatActivity() {
 
         thread {
             playerCharacter = db.charactersDao().getCharacterByName(name)
+            val playerClass = db.characterClassDao().getClassesByCharacter(name)[0].name
 
             viewModel.spells.clear()
             viewModel.spells.addAll(db.spellsDao().getSpellsByCharacter(name))
@@ -51,7 +52,7 @@ class CharacterScreenActivity : AppCompatActivity() {
             hpEditText.setText(viewModel.hitPoints.toString())
             hpMaxTextView.text = " / " + (playerCharacter.maxHP.toString())
 
-            viewModel.characterClass = playerCharacter.characterClass
+            viewModel.characterClass = playerClass
 
             hpEditText.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {

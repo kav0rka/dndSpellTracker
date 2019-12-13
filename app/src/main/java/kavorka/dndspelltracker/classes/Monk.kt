@@ -10,11 +10,10 @@ const val fourElements = "Four Elements"
 const val kensei = "Kensei"
 const val sunSoul = "Sun Soul"
 
-class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
+class Monk(playerCharacter: PlayerCharacter, subClass: String="", level: Int=1) : ClassMain(playerCharacter, subClass, level) {
 
     init {
         hitDie = 8
-        val level = playerCharacter.level
 
         // Ki points
         if (level >= 2) {
@@ -29,8 +28,7 @@ class Monk(playerCharacter: PlayerCharacter) : CharacterClass(playerCharacter) {
             subClasses.add(sunSoul)
 
             // Sub class abilities
-            val sub = playerCharacter.characterSubClass
-            if (sub == openHand) {
+            if (subClass == openHand) {
                 abilities.add(Ability("Wholeness of body"))
             }
         }

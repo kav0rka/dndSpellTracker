@@ -53,6 +53,7 @@
         android:id="@+id/editImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/deleteImageButton"
         app:layout_constraintEnd_toStartOf="@+id/deleteImageButton"
@@ -79,18 +80,9 @@
         android:id="@+id/levelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Level"
-        app:layout_constraintStart_toStartOf="@+id/classTextView"
-        app:layout_constraintTop_toBottomOf="@+id/classTextView" />
-
-    <TextView
-        android:id="@+id/classTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="class"
         app:layout_constraintStart_toStartOf="@+id/nameTextView"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 

@@ -4,7 +4,7 @@ import kavorka.dndspelltracker.data.Ability
 import kavorka.dndspelltracker.data.PlayerCharacter
 import kavorka.dndspelltracker.getAbilityMod
 
-open class CharacterClass(val playerCharacter: PlayerCharacter) {
+open class ClassMain(val playerCharacter: PlayerCharacter, val subClass: String="", val level: Int=1) {
 
     var lvl1SpellMax: Int=0
     var lvl2SpellMax: Int=0
