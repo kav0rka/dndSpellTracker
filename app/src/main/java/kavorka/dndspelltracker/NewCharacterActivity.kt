@@ -159,7 +159,7 @@ class NewCharacterActivity : AppCompatActivity() {
                 val allSubClasses = getSubClasses(playerClass.name, level=playerClass.level)
                 subClassAdapter.addAll(allSubClasses)
                 subClassAdapter.notifyDataSetChanged()
-                val subClassPos = allSubClasses.indexOf(playerClass.name)
+                val subClassPos = allSubClasses.indexOf(playerClass.subClass)
                 subClassSpinner.setSelection(subClassPos)
                 viewModel.characterClass = playerClass.name
 
